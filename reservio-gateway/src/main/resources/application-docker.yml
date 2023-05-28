@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: reservio-gateway
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  rabbitmq:
+    addresses: rabbitmq:5672
+  datasource:
+    url: jdbc:postgresql://gateway:5432/gateway_db
+    password: postgres
+    username: postgres

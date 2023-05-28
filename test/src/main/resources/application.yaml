@@ -1,0 +1,27 @@
+
+
+spring:
+  datasource:
+    url: ${URL}
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  profiles:
+    active: development
+  security:
+    user:
+      name: admin
+      password: 123456
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+server:
+  port: '8080'
+
+
+APPLICATION_SECRET: ApDWSd2lb8VsQHxM/lwNoJSjXHzOKhaW+cq6DEejw1b5d07VwWZVST5Qb1eyQNGsc5FUGrnvD08+rnz5dc9zum1DUkzmsy6/xmCNTPZzFGYoskzvmk2ntB5X3SxoQ4waAxcsVHJ6CH4GOk7dsj/IJbiU1pG/2AOC8tgINTp3eggOyQ8FnT5IQOaWEz2q4IieQzhyviXMtUw
+#URL: jdbc:postgresql://restaurant-postgres-container:5432/postgres
+URL: jdbc:postgresql://localhost:5432/postgres
