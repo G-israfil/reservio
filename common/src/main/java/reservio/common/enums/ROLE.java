@@ -1,4 +1,4 @@
-package reservio.usermanagement;
+package reservio.common.enums;
 
 public enum ROLE {
     USER,

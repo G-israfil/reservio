@@ -1,16 +1,17 @@
 services:
   postgres:
-    container_name: gateway
+    container_name: reservio
     image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: gateway_db
+      POSTGRES_DB: reservio
     ports:
-      - "5433:5433"
+      - "5432:5432"
     networks:
       - postgres
-    restart: unless-stopped
+      - reservio-net
+    restart: on-failure
   rabbitmq:
     image: rabbitmq:3.11-management
     container_name: rabbitmq
@@ -19,22 +20,36 @@ services:
       - "15672:15672"
     networks:
       - spring
-  reservio-gateway:
-    image: reservio-gateway:latest
-    container_name: reservio_gateway
+  user-management:
+    container_name: user_management
+    image: user-management
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
     networks:
-      - spring
       - postgres
-    depends_on:
-      - postgres
-      - rabbitmq
+      - reservio-net
+#  reservio-gateway:
+#    image: reservio-gateway:latest
+#    container_name: reservio_gateway
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#      - postgres
+#    depends_on:
+#      - postgres
+#      - rabbitmq
 
 networks:
   postgres:
     driver: bridge
   spring:
+    driver: bridge
+  reservio-net:
     driver: bridge
 volumes:
   postgres:

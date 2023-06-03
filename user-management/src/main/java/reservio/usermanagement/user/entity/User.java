@@ -1,16 +1,21 @@
 package reservio.usermanagement.user.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import reservio.usermanagement.ROLE;
+import reservio.common.enums.STATUS;
+import reservio.usermanagement.enums.ROLE;
 
 
-import javax.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
@@ -18,31 +23,28 @@ import java.util.stream.Collectors;
 
 @Entity
 @Data
+@EqualsAndHashCode
 @Table(name = "users")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
+
     @Column(name = "lastname")
     private String lastname;
 
     @Column(name = "email",unique = true)
+
     private String email;
 
     @Column(name = "username",unique = true)
     private String username;
-
-//    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
-//    @JoinTable(name = "user_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Collection<Role> roles;
-
 
     @Column(name = "roles")
     @Enumerated(EnumType.STRING)
@@ -52,39 +54,32 @@ public class User implements UserDetails{
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @Column(name = "updatedDate")
+    @Column(name = "lastUpdatedDate")
     @LastModifiedDate
-    private LocalDateTime updatedDate;
+    private LocalDateTime lastUpdatedDate;
 
     @Column(name = "hash")
     private String hash;
 
-    @Column(name = "salt")
-    private String salt;
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private STATUS status;
 
-    @Column(name = "orderHistory")
-    private String orderHistory;
-
-    @Column(name = "reservationHistory")
-    private String reservationHistory;
-
-    @Column(name = "paymentMethods")
-    private String paymentMethods;
 
     @Column(name = "updatedBy")
     private String updatedBy;
 
     @Column(name = "locked")
-    private Boolean locked;
+    private Boolean locked = false;
 
     @Column(name = "credentialsNonExpired")
-    private Boolean credentialsNonExpired;
+    private Boolean credentialsNonExpired = false;
 
     @Column(name = "enabled")
-    private Boolean enabled;
+    private Boolean enabled = false;
 
     @Column(name = "version")
     @Version
@@ -95,10 +90,6 @@ public class User implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        //        final List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-//        roles.stream().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.name())));
-//
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
     }
 
@@ -114,7 +105,7 @@ public class User implements UserDetails{
 
     @Override
     public boolean isAccountNonLocked() {
-        return locked;
+        return !locked;
     }
 
     @Override

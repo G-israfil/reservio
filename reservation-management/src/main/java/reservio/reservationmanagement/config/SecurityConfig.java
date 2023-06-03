@@ -1,4 +1,4 @@
-package reservio.usermanagement.user.config;
+package reservio.reservationmanagement.config;
 
 
 import org.springframework.context.annotation.Bean;
@@ -9,12 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/auth/**"))
+        return web -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/reservationManagement/**"))
                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).anyRequest();
     }
 
@@ -22,5 +23,4 @@ public class SecurityConfig {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

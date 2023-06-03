@@ -19,6 +19,9 @@
         <module>common</module>
         <module>restaurant-management</module>
         <module>reservio-gateway</module>
+        <module>reservation-management</module>
+        <module>order-management</module>
+        <module>subscription-management</module>
         <module>storage-management</module>
     </modules>
 

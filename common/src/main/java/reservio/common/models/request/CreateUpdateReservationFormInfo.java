@@ -7,11 +7,12 @@ import java.time.LocalDateTime;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
 public class CreateUpdateReservationFormInfo {
 
-    private String state;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String tableId;
+    private String restaurantId;
+    private int reservationSize;
+    private int duration;
 }

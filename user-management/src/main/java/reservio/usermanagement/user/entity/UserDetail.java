@@ -1,4 +1,4 @@
-package reservio.usermanagement.config.security;
+package reservio.usermanagement.user.entity;
 
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,7 +21,7 @@ public class UserDetail implements UserDetails, CredentialsContainer {
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return this.user.getHash();
     }
 
     @Override

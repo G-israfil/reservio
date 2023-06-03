@@ -7,9 +7,6 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class LoginFormInfo {
-
-    private String username;
-    private String email;
     private String emailOrUsername;
     private String password;
 }
