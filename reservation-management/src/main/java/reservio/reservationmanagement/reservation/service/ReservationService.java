@@ -3,7 +3,6 @@ package reservio.reservationmanagement.reservation.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import reservio.common.enums.STATUS;
@@ -28,7 +27,6 @@ public class ReservationService {
         reservation.setStatus(STATUS.ACTIVE);
         return this.repository.save(reservation);
     }
-
 
     public Reservation updateReservation(@PathVariable @NonNull final String id, @NonNull @RequestBody final CreateUpdateReservationFormInfo formInfo) {
         final Optional<Reservation> optionalReservation = this.repository.findById(Long.parseLong(id));

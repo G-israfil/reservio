@@ -38,7 +38,7 @@ public class ReservationController {
     @GetMapping("/reservation/{id}")
     public ResponseEntity getReservation(@PathVariable @NonNull final String id) {
         this.reservationService.getReservation(id);
-        return  ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/cancelReservation/{id}")
