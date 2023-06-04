@@ -8,7 +8,7 @@
         <version>1.0.0</version><!-- lookup parent from repository -->
     </parent>
     <artifactId>common</artifactId>
-    <version>2.0.0</version>
+    <version>1.0.0</version>
     <name>common</name>
     <description>common</description>
     <properties>

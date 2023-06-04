@@ -9,7 +9,7 @@
     </parent>
     <groupId>reservio</groupId>
     <artifactId>product-catalog-management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>product-catalog-management</name>
     <description>product-catalog-management</description>
     <properties>
