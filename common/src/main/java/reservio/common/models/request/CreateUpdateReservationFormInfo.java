@@ -15,4 +15,5 @@ public class CreateUpdateReservationFormInfo {
     private String restaurantId;
     private int reservationSize;
     private int duration;
+    private String description;
 }
