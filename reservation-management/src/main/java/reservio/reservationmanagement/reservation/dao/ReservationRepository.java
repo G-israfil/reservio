@@ -6,4 +6,5 @@ import reservio.reservationmanagement.reservation.entity.Reservation;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation,Long> {
+
 }

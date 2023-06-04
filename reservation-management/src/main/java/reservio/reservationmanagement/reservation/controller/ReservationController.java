@@ -1,3 +1,4 @@
+
 package reservio.reservationmanagement.reservation.controller;
 
 import lombok.NonNull;
@@ -23,33 +24,39 @@ public class ReservationController {
         return ResponseEntity.ok(this.reservationService.createReservation(formInfo));
     }
 
-    @PatchMapping("/reservation")
-    public void updateReservation(){
-
-    }
-    @DeleteMapping("reservation/{id}")
-    public void deleteReservation(@PathVariable @NonNull final String id){
-
+    @PatchMapping("/reservation/{id}")
+    public ResponseEntity updateReservation(@PathVariable @NonNull final String id, @NonNull @RequestBody final CreateUpdateReservationFormInfo formInfo) {
+        return ResponseEntity.ok(this.reservationService.updateReservation(id, formInfo));
     }
 
-    @GetMapping("reservation/{id}")
-    public void getReservation(@PathVariable @NonNull final String id){
-
+    @DeleteMapping("/reservation/{id}")
+    public ResponseEntity deleteReservation(@PathVariable @NonNull final String id) {
+        this.reservationService.deleteReservation(id);
+        return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/reservation/{id}")
+    public ResponseEntity getReservation(@PathVariable @NonNull final String id) {
+        this.reservationService.getReservation(id);
+        return ResponseEntity.noContent().build();
+    }
 
     @PostMapping("/cancelReservation/{id}")
-    public void cancelReservation(@PathVariable @NonNull final String id){
-
+    public ResponseEntity cancelReservation(@PathVariable @NonNull final String id) {
+        this.reservationService.cancelReservation(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/postponeReservation/{id}")
-    public void postponeReservation(@PathVariable @NonNull final String id){
-
+    public ResponseEntity postponeReservation(@PathVariable @NonNull final String id) {
+        this.reservationService.postponeReservation(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/advanceReservation/{id}")
-    public void advanceReservation(@PathVariable @NonNull final String id){
-
+    public ResponseEntity advanceReservation(@PathVariable @NonNull final String id) {
+        this.reservationService.advanceReservation(id);
+        return ResponseEntity.noContent().build();
     }
 }
+
