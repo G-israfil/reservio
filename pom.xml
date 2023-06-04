@@ -26,6 +26,7 @@
         <module>subscription-management</module>
         <module>storage-management</module>
         <module>payment-management</module>
+        <module>product-catalog-management</module>
     </modules>
 
     <dependencyManagement>

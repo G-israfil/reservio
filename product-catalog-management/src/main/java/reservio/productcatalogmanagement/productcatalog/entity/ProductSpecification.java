@@ -1,35 +1,24 @@
-package reservio.paymentmanagement.payment.entity;
-
+package reservio.productcatalogmanagement.productcatalog.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import reservio.common.enums.STATUS;
-import reservio.common.models.RelatedEntity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-@Entity(name = "payments")
-@Table
+@Table(name = "product_specifications")
+@Entity
 @Data
-@EntityListeners(AuditingEntityListener.class)
-public class Payment {
+public class ProductSpecification {
     @Id
-    @Column(name = "payment_id")
+    @Column(name = "product_specification_id")
     private Long id;
 
     @Column(name = "type")
     private String type;
-
-    @Column(name = "paymentItems")
-    private String paymentItems;
-
-    @Column(name = "totalPrice")
-    private Double totalPrice;
 
     @Column(name = "description")
     private String description;
@@ -46,9 +35,6 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private STATUS status;
 
-    @ElementCollection
-    private List<RelatedEntity> relatedEntities;
-
     @Column(name = "updatedBy")
     private String updatedBy;
 
@@ -56,8 +42,7 @@ public class Payment {
     @Version
     private int version;
 
-    public Payment(){
+    public ProductSpecification(){
         id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
     }
-
 }
