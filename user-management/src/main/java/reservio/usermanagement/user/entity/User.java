@@ -11,9 +11,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import reservio.common.enums.ROLE;
 import reservio.common.enums.STATUS;
-import reservio.usermanagement.enums.ROLE;
-
 
 
 import java.time.LocalDateTime;

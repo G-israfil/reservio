@@ -9,20 +9,23 @@
     <description>reservio</description>
     <properties>
         <java.version>20</java.version>
+        <maven.compiler.source>20</maven.compiler.source>
+        <maven.compiler.target>20</maven.compiler.target>
     </properties>
     <packaging>
         pom
     </packaging>
     <modules>
+        <module>common</module>
         <module>user-management</module>
         <module>account-management</module>
-        <module>common</module>
         <module>restaurant-management</module>
         <module>reservio-gateway</module>
         <module>reservation-management</module>
         <module>order-management</module>
         <module>subscription-management</module>
         <module>storage-management</module>
+        <module>payment-management</module>
     </modules>
 
     <dependencyManagement>
@@ -30,14 +33,14 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.7.5</version>
+                <version>3.1.0</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2020.0.3</version>
+                <version>2022.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

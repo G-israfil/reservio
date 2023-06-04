@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import reservio.usermanagement.enums.ROLE;
+import reservio.common.enums.ROLE;
 import reservio.usermanagement.user.dao.UserRepository;
 import reservio.usermanagement.user.dao.UserRoleRepository;
 import reservio.usermanagement.user.entity.User;

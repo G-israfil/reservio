@@ -8,7 +8,7 @@ import reservio.common.models.request.CreateUpdateReservationFormInfo;
 import reservio.common.util.CommonUtils;
 
 @SpringBootApplication
-@ComponentScan({"reservio.reservationmanagement","reservio.common"})
+@ComponentScan({"reservio.reservationmanagement","reservio"})
 public class ReservationManagementApplication {
 
     public static void main(String[] args) {
