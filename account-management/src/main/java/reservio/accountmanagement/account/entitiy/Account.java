@@ -17,7 +17,6 @@ import java.util.UUID;
 @Entity
 @Data
 public class Account {
-
     @Id
     @Column(name = "accountId")
     private Long id;
@@ -60,8 +59,7 @@ public class Account {
     private Boolean suspended = false;
 
     @Column(name = "trustScore")
-    @Enumerated(EnumType.STRING)
-    private String trustScore;
+    private int trustScore;
 
     @Column(name = "version")
     @Version

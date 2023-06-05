@@ -3,10 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>reservio</groupId>
+        <artifactId>reservio-microservices</artifactId>
+        <version>1.0.0</version><!-- lookup parent from repository -->
     </parent>
     <groupId>reservio</groupId>
     <artifactId>subscription-management</artifactId>
@@ -57,13 +56,14 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
+        <finalName>subscription-management</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>reservio.subscriptionmanagement.SubscriptionManagementApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
@@ -71,8 +71,16 @@
                         </exclude>
                     </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>
+                                repackage
+                            </goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
 </project>

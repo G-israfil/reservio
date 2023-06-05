@@ -19,7 +19,8 @@ services:
       - "5672:5672"
       - "15672:15672"
     networks:
-      - spring
+      - reservio-net
+      - postgres
   user-management:
     container_name: user_management
     image: user-management
@@ -31,6 +32,107 @@ services:
       SPRING_PROFILES_ACTIVE: dev
     networks:
       - postgres
+      - reservio-net
+  account-management:
+    container_name: account_management
+    image: account-management
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  order-management:
+    container_name: order_management
+    image: order-management
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  payment-management:
+    container_name: payment_management
+    image: payment-management
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  product-catalog-management:
+    container_name: product_catalog_management
+    image: product-catalog-management
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  reservation-management:
+    container_name: reservation_management
+    image: reservation-management
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  restaurant-management:
+    container_name: restaurant_management
+    image: restaurant-management
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  storage-management:
+    container_name: storage_management
+    image: storage-management
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  subscription-management:
+    container_name: subscription_management
+    image: subscription-management
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reservio
+      DB_URL: reservio:5432
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  common:
+    container_name: common
+    image: common
+    networks:
       - reservio-net
 #  reservio-gateway:
 #    image: reservio-gateway:latest
@@ -46,8 +148,6 @@ services:
 
 networks:
   postgres:
-    driver: bridge
-  spring:
     driver: bridge
   reservio-net:
     driver: bridge
