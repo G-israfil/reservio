@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@ComponentScan({""})
+@ComponentScan({"reservio.usermanagement","reservio.common"})
 public class UserManagementApplication {
 
 	public static void main(String[] args) {
