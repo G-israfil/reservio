@@ -1,2 +1,4 @@
-package reservio.ordermanagement.order.messaging;public class MessageService {
+package reservio.ordermanagement.order.messaging;
+
+public class MessageService {
 }
