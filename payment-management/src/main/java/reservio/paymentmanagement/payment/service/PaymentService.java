@@ -21,12 +21,12 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final ModelMapperHelper modelMapperHelper;
 
-    public Payment createPayment(@NonNull @RequestBody CreateUpdatePaymentFormInfo formInfo){
+    public Payment createPayment(@NonNull @RequestBody final CreateUpdatePaymentFormInfo formInfo){
         final Payment payment = modelMapperHelper.map(formInfo, Payment.class);
         return this.paymentRepository.save(payment);
     }
 
-    public Optional<Payment> updatePayment(@NonNull String id, @NonNull CreateUpdatePaymentFormInfo formInfo) {
+    public Optional<Payment> updatePayment(@NonNull String id, @NonNull @RequestBody final CreateUpdatePaymentFormInfo formInfo) {
         Optional<Payment> optionalPayment = paymentRepository.findById(Long.valueOf(id));
         if (optionalPayment.isPresent()) {
             Payment payment = optionalPayment.get();
@@ -45,20 +45,20 @@ public class PaymentService {
         return Optional.empty();
     }
 
-    public Optional<Payment> getPayment(@NonNull String id) {
+    public Optional<Payment> getPayment(@PathVariable @NonNull String id) {
         return paymentRepository.findById(Long.valueOf(id));
     }
 
-    public Iterable<Payment> listPayments(String name, String value) {
+    public Iterable<Payment> listPayments(@PathVariable String name, String value) {
         //TODO: Implement the logic to list payments based on the provided parameters
         return null;
     }
 
-    public void deletePayment(@NonNull String id) {
+    public void deletePayment(@PathVariable @NonNull String id) {
         paymentRepository.deleteById(Long.valueOf(id));
     }
 
-    public void refundPayment(String id) {
+    public void refundPayment(@PathVariable String id) {
         //TODO: Implement the logic to refund the payment
     }
 }
