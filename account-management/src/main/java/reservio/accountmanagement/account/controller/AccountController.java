@@ -1,6 +1,5 @@
 package reservio.accountmanagement.account.controller;
 
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
