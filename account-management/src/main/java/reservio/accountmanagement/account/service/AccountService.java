@@ -35,9 +35,9 @@ public class AccountService {
         if (StringUtils.isBlank(account.getType().toString())) {
             account.setType(ACCOUNT_TYPE.USER_ACCOUNT);
         }
-        RelatedEntity userRelatedEntity = CommonUtils.generateRelatedEntity(RelatedEntityName.USER,formInfo.getUserId(), RelatedEntityTypes.TYPE_USER);
+        RelatedEntity userRelatedEntity = CommonUtils.generateRelatedEntity(RelatedEntityName.USER,formInfo.getUserId(), RelatedEntityTypes.USER);
         account.setOwners(Collections.singletonList(userRelatedEntity));
-        RelatedEntity paymentMethod = CommonUtils.generateRelatedEntity(RelatedEntityName.DEFAULT_PAYMENT_METHOD,formInfo.getPaymentMethodId(), RelatedEntityTypes.TYPE_PAYMENT_METHOD);
+        RelatedEntity paymentMethod = CommonUtils.generateRelatedEntity(RelatedEntityName.DEFAULT_PAYMENT_METHOD,formInfo.getPaymentMethodId(), RelatedEntityTypes.PAYMENT_METHOD);
         account.setPaymentMethods(Collections.singletonList(paymentMethod));
 
         return modelMapperHelper.map(repository.save(account),AccountCreateUpdateResponse.class);

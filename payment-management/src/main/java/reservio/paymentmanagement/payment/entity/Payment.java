@@ -26,13 +26,17 @@ public class Payment {
     private String type;
 
     @Column(name = "paymentItems")
-    private String paymentItems;
+    @OneToMany(mappedBy = "payment")
+    private List<PaymentItem> paymentItems;
 
     @Column(name = "totalPrice")
     private Double totalPrice;
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "duration")
+    private String duration;
 
     @Column(name = "createdDate")
     @CreatedDate
@@ -52,6 +56,10 @@ public class Payment {
     @Column(name = "updatedBy")
     private String updatedBy;
 
+
+    private Boolean isCyclePayment = false;
+    private int totalCycle = 0;
+    private int remainingCycle = 0;
     @Column(name = "version")
     @Version
     private int version;

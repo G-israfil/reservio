@@ -1,9 +1,14 @@
 package reservio.common.contant;
 
 public class RelatedEntityTypes {
-    public static String TYPE_USER = "user";
-    public static String TYPE_PAYMENT = "type_user";
-    public static String TYPE_RESERVATION = "type_user";
-    public static String TYPE_RESTAURANT = "type_user";
-    public static String TYPE_PAYMENT_METHOD = "type_payment_method";
+    public static String USER = "user";
+    public static String PAYMENT = "payment";
+    public static String RESERVATION = "reservation";
+    public static String RESTAURANT = "restaurant";
+    public static String PAYMENT_METHOD = "paymentMethod";
+    public static String SUBSCRIPTION = "subcription";
+    public static String ORDER = "order";
+    public static String ACCOUNT = "account";
+    public static String ROLE = "role";
+
 }

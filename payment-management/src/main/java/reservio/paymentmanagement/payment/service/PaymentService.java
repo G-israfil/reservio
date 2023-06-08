@@ -12,6 +12,7 @@ import reservio.paymentmanagement.payment.dao.PaymentRepository;
 import reservio.paymentmanagement.payment.entity.Payment;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,7 +50,7 @@ public class PaymentService {
         return paymentRepository.findById(Long.valueOf(id));
     }
 
-    public Iterable<Payment> listPayments(@PathVariable String name, String value) {
+    public List<Payment> listPayments(@PathVariable String name, String value) {
         //TODO: Implement the logic to list payments based on the provided parameters
         return null;
     }
