@@ -27,6 +27,7 @@
         <module>storage-management</module>
         <module>payment-management</module>
         <module>product-catalog-management</module>
+        <module>eureka-server</module>
     </modules>
 
     <dependencyManagement>

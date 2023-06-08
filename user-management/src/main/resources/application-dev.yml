@@ -3,6 +3,8 @@ POSTGRES_PASSWORD: postgres
 POSTGRES_DB: reservio
 DB_URL: localhost:5432
 
+EUREKA_ENABLED: true
+EUREKA_URL: http://localhost:8761/eureka
 spring:
   datasource:
     url: jdbc:postgresql://${DB_URL}/${POSTGRES_DB}
@@ -19,7 +21,16 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: ${EUREKA_ENABLED}
+
+
 server:
-  port: 8097
+  port: 9009
 
 

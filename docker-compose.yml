@@ -8,6 +8,8 @@ services:
       POSTGRES_DB: reservio
     ports:
       - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
     networks:
       - postgres
       - reservio-net
@@ -29,7 +31,12 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: reservio
       DB_URL: reservio:5432
+      EUREKA_URL: http://eureka-server:8761/eureka
       SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - eureka-server
+    ports:
+      - "9009:9009"
     networks:
       - postgres
       - reservio-net
@@ -126,6 +133,14 @@ services:
       POSTGRES_DB: reservio
       DB_URL: reservio:5432
       SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - postgres
+      - reservio-net
+  eureka-server:
+    container_name: eureka-server
+    image: eureka-server
+    ports:
+      - "8761:8761"
     networks:
       - postgres
       - reservio-net

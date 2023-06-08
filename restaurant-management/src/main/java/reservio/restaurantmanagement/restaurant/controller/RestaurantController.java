@@ -37,8 +37,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurant/{id}")
     public ResponseEntity getRestaurant(@PathVariable @NonNull final String id) {
-        this.restaurantService.getRestaurant(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(this.restaurantService.getRestaurant(id));
     }
 
 }
