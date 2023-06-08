@@ -1,14 +1,20 @@
 package reservio.subscriptionmanagement.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import reservio.common.models.RelatedEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "subscriptions")
 public class Subscription {
@@ -49,5 +55,14 @@ public class Subscription {
 
     @Column(name = "totalCycle")
     private String totalCycle;
+
+    @ElementCollection
+    private List<RelatedEntity> relatedEntities;
+    @Column(name = "version")
+    @Version
+    private int version;
+    public Subscription(){
+        id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
+    }
 
 }
