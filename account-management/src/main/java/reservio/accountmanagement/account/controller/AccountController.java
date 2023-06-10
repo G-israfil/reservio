@@ -5,14 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import reservio.accountmanagement.account.entitiy.Account;
 import reservio.accountmanagement.account.service.AccountService;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.models.request.CreateUpdateAccountFormInfo;
 import reservio.common.models.response.AccountCreateUpdateResponse;
-
-import java.awt.image.VolatileImage;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/accountManagement")
@@ -44,16 +40,16 @@ public class AccountController{
 
     @PostMapping("/account/deactivate/{id}")
     public ResponseEntity<AccountCreateUpdateResponse> deactivateAccount(@NonNull @PathVariable Long id){
-        return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, STATUS.DEACTIVATED));
+        return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, Status.DEACTIVATED));
     }
 
     @PostMapping("/account/suspend/{id}")
     public ResponseEntity<AccountCreateUpdateResponse> suspendAccount(@NonNull @PathVariable Long id){
-        return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, STATUS.SUSPENDED));
+        return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, Status.SUSPENDED));
     }
 
     @PostMapping("/account/resume/{id}")
     public ResponseEntity<AccountCreateUpdateResponse> resumeAccount(@NonNull @PathVariable Long id){
-        return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, STATUS.ACTIVE));
+        return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, Status.ACTIVE));
     }
 }

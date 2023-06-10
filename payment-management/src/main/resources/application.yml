@@ -6,6 +6,15 @@ DB_URL: localhost:5432
 EUREKA_ENABLED: true
 EUREKA_URL: http://localhost:8761/eureka
 
+
+
+
+
+app:
+  queue:
+    name: reservio
+
+
 spring:
   application:
     name: payment-management
@@ -41,4 +50,4 @@ eureka:
 
 
 server:
-  port: 8092
+  port: 9003

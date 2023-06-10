@@ -7,9 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.models.embeddable.Properties;
-import reservio.common.models.embeddable.RelatedEntity;
 import reservio.common.util.CommonUtils;
 
 import java.time.LocalDateTime;
@@ -36,7 +35,7 @@ public class PaymentMethod {
 
     @Column(name = "satatus")
     @Enumerated(EnumType.STRING)
-    private STATUS status;
+    private Status status;
 
     @Column(name = "created_date")
     @CreatedDate

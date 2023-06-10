@@ -1,9 +1,8 @@
 package reservio.common.models.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.ElementCollection;
 import lombok.Data;
-import reservio.common.enums.SUBSCRIPTION_TYPES;
+import reservio.common.enums.SubscriptionType;
 import reservio.common.models.embeddable.Period;
 import reservio.common.models.embeddable.Properties;
 import reservio.common.models.embeddable.RelatedEntity;
@@ -18,7 +17,7 @@ public class CreateUpdateSubscriptionFormInfo {
     private String description;
     private String duration;
     private String term;
-    private SUBSCRIPTION_TYPES type;
+    private SubscriptionType type;
     private LocalDateTime startedDate;
     private LocalDateTime expectedExpiryDate;
     private String currentCycle;

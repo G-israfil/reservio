@@ -6,6 +6,11 @@ DB_URL: localhost:5432
 EUREKA_ENABLED: true
 EUREKA_URL: http://localhost:8761/eureka
 
+
+app:
+  queue:
+    name: reservio
+
 spring:
   datasource:
     url: jdbc:postgresql://${DB_URL}/${POSTGRES_DB}
@@ -13,8 +18,21 @@ spring:
     password: ${POSTGRES_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3s
+          max-attempts: 3
+          max-interval: 10s
+          multiplier: 2
   security:
     user:
       name: admin
@@ -34,6 +52,6 @@ eureka:
 
 
 server:
-  port: 8097
+  port: 9006
 
 

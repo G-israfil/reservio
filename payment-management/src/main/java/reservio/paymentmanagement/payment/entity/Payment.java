@@ -6,7 +6,7 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.models.embeddable.Price;
 import reservio.common.models.embeddable.RelatedEntity;
 import reservio.common.util.CommonUtils;
@@ -14,7 +14,6 @@ import reservio.paymentmanagement.paymentmethod.entity.PaymentMethod;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity(name = "payments")
 @Table
@@ -54,7 +53,7 @@ public class Payment {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private STATUS status;
+    private Status status;
 
     @ElementCollection
     private List<RelatedEntity> relatedEntities;

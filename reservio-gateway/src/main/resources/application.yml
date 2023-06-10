@@ -3,6 +3,9 @@ POSTGRES_PASSWORD: postgres
 POSTGRES_DB: reservio
 DB_URL: localhost:5432
 
+app:
+  queue:
+    name: reservio
 
 spring:
   application:

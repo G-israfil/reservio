@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reservio.common.contant.Contants;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.exceptions.NotFoundException;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.request.CreateUpdateProductSpecificationFormInfo;
@@ -23,7 +23,7 @@ public class ProductCatalogService {
     private final ModelMapperHelper modelMapperHelper;
     public ProductSpecification createProductSpecification(@NonNull CreateUpdateProductSpecificationFormInfo formInfo){
         final ProductSpecification productSpecification = modelMapperHelper.map(formInfo,ProductSpecification.class);
-        productSpecification.setStatus(STATUS.ACTIVE);
+        productSpecification.setStatus(Status.ACTIVE);
         return repository.save(productSpecification);
     }
 
@@ -43,7 +43,7 @@ public class ProductCatalogService {
         final Optional<ProductSpecification> optionalProductSpecification = this.repository.findById(id);
         if(optionalProductSpecification.isPresent()){
             final ProductSpecification productSpecification = optionalProductSpecification.get();
-            productSpecification.setStatus(STATUS.CANCELLED);
+            productSpecification.setStatus(Status.CANCELLED);
             this.repository.save(productSpecification);
         }
         throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
@@ -52,7 +52,7 @@ public class ProductCatalogService {
         final Optional<ProductSpecification> optionalProductSpecification = this.repository.findById(id);
         if(optionalProductSpecification.isPresent()){
             final ProductSpecification productSpecification = optionalProductSpecification.get();
-            productSpecification.setStatus(STATUS.ACTIVE);
+            productSpecification.setStatus(Status.ACTIVE);
             this.repository.save(productSpecification);
         }
         throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);

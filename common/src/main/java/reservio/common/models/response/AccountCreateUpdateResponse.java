@@ -2,7 +2,7 @@ package reservio.common.models.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.models.embeddable.RelatedEntity;
 
 import java.time.LocalDateTime;
@@ -28,7 +28,7 @@ public class AccountCreateUpdateResponse {
 
     private List<RelatedEntity> paymentMethods;
 
-    private STATUS status;
+    private Status status;
 
     private String updatedBy;
 

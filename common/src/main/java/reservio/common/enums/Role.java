@@ -1,6 +1,6 @@
 package reservio.common.enums;
 
-public enum ROLE {
+public enum Role {
     USER,
     EMPLOYEE,
     ADMIN,

@@ -6,8 +6,8 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import reservio.common.enums.STATUS;
-import reservio.common.enums.SUBSCRIPTION_TYPES;
+import reservio.common.enums.Status;
+import reservio.common.enums.SubscriptionType;
 import reservio.common.models.embeddable.Period;
 import reservio.common.models.embeddable.Properties;
 import reservio.common.models.embeddable.RelatedEntity;
@@ -15,7 +15,6 @@ import reservio.common.util.CommonUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 
 @Data
@@ -34,16 +33,15 @@ public class Subscription {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private SUBSCRIPTION_TYPES type;
+    private SubscriptionType type;
 
     @Column(name = "description")
     private String description;
 
 
-
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private STATUS status;
+    private Status status;
 
     @Column(name = "createdDate")
     @CreatedDate

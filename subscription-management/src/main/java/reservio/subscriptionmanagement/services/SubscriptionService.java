@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import reservio.common.enums.TERMS;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Term;
+import reservio.common.enums.Status;
 import reservio.common.exceptions.NotFoundException;
 import reservio.common.models.request.CreateUpdateSubscriptionFormInfo;
 import reservio.subscriptionmanagement.entity.Subscription;
@@ -26,7 +26,7 @@ public class SubscriptionService {
 
     public Subscription createSubscription(@NonNull @RequestBody final CreateUpdateSubscriptionFormInfo formInfo) {
         final Subscription subscription = modelMapperHelper.map(formInfo, Subscription.class);
-        subscription.setStatus(STATUS.ACTIVE);
+        subscription.setStatus(Status.ACTIVE);
         return this.repository.save(subscription);
     }
 
@@ -56,7 +56,7 @@ public class SubscriptionService {
     public void activateSubscription(@NonNull Long id) {
         final Subscription subscription = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Subscription not found with given id: " + id));
-        subscription.setStatus(STATUS.ACTIVE);
+        subscription.setStatus(Status.ACTIVE);
         repository.save(subscription);
     }
     public Subscription getSubscription(@NonNull Long id) {
@@ -70,7 +70,7 @@ public class SubscriptionService {
         Subscription subscription = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Subscription not found with given id: " + id));
 
-        subscription.setStatus(STATUS.DEACTIVATED);
+        subscription.setStatus(Status.DEACTIVATED);
         repository.save(subscription);
     }
 
@@ -78,7 +78,7 @@ public class SubscriptionService {
         Subscription subscription = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Subscription not found with given id: " + id));
 
-        subscription.setStatus(STATUS.SUSPENDED);
+        subscription.setStatus(Status.SUSPENDED);
         repository.save(subscription);
     }
 
@@ -86,7 +86,7 @@ public class SubscriptionService {
         Subscription subscription = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Subscription not found with given id: " + id));
 
-        subscription.setStatus(STATUS.ACTIVE);
+        subscription.setStatus(Status.ACTIVE);
         repository.save(subscription);
     }
 
@@ -94,12 +94,12 @@ public class SubscriptionService {
         Subscription subscription = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Subscription not found with given id: " + id));
         final Long duration = subscription.getPeriod().getDuration();
-        final TERMS term = subscription.getPeriod().getTerm();
+        final Term term = subscription.getPeriod().getTerm();
         subscription.setExpectedExpiryDate(getExpectedExpireDate(term,duration,subscription.getExpectedExpiryDate()));
             repository.save(subscription);
     }
 
-    private LocalDateTime getExpectedExpireDate(final TERMS term,final Long duration,final LocalDateTime expectedExpireDate){
+    private LocalDateTime getExpectedExpireDate(final Term term, final Long duration, final LocalDateTime expectedExpireDate){
 
         switch (term){
             case DAILY -> {

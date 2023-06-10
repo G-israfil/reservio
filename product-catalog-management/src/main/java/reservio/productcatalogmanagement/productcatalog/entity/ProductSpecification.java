@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.models.embeddable.Price;
 import reservio.common.models.embeddable.Properties;
 
@@ -47,7 +47,7 @@ public class ProductSpecification {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private STATUS status;
+    private Status status;
 
     @Column(name = "updatedBy")
     private String updatedBy;

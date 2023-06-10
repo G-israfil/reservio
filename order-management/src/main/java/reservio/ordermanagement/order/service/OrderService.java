@@ -25,11 +25,11 @@ public class OrderService {
     private  final ModelMapperHelper modelMapperHelper;
 
 
-    public void createOrder(@NonNull final CreateUpdateOrderFormInfo formInfo){
-        final Order order = modelMapperHelper.map(formInfo, Order.class);
+    public Order createOrder(@NonNull final CreateUpdateOrderFormInfo formInfo){
 
-        //return modelMapperHelper.map(repository.save(order), OrderCreateUpdateResponse.class);
 
+//     return modelMapperHelper.map(repository.save(order), OrderCreateUpdateResponse.class);
+        return modelMapperHelper.map(formInfo, Order.class);
     }
 
     public OrderCreateUpdateResponse getOrderById(@NonNull final String id){

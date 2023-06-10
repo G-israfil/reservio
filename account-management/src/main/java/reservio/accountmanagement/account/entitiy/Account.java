@@ -6,14 +6,13 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import reservio.common.enums.ACCOUNT_TYPE;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.AccountType;
+import reservio.common.enums.Status;
 import reservio.common.models.embeddable.RelatedEntity;
 import reservio.common.util.CommonUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Table(name = "accounts")
 @Entity
@@ -32,7 +31,7 @@ public class Account {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private ACCOUNT_TYPE type;
+    private AccountType type;
 
     @Column(name = "createdDate")
     @CreatedDate
@@ -50,7 +49,7 @@ public class Account {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private STATUS status;
+    private Status status;
 
     @Column(name = "updatedBy")
     private String updatedBy;

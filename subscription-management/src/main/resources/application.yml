@@ -3,6 +3,10 @@ POSTGRES_PASSWORD: postgres
 POSTGRES_DB: reservio
 DB_URL: localhost:5432
 
+app:
+  queue:
+    name: reservio
+
 spring:
   application:
     name: subscription-management
@@ -14,6 +18,19 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3s
+          max-attempts: 3
+          max-interval: 10s
+          multiplier: 2
 
   security:
     user:
@@ -22,5 +39,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
 server:
-  port: 8096
+  port: 9008

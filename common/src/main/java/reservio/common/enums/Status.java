@@ -2,7 +2,7 @@ package reservio.common.enums;
 
 
 
-public enum STATUS {
+public enum Status {
     IN_PROGRESS,
     PENDING_ACTIVATION,
     PENDING_DEACTIVATION,

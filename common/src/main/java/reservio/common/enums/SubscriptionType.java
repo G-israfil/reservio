@@ -1,6 +1,6 @@
 package reservio.common.enums;
 
-public enum SUBSCRIPTION_TYPES {
+public enum SubscriptionType {
     FREE,
     REGULAR,
     PREMIUM

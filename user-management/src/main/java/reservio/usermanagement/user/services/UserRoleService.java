@@ -4,8 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import reservio.common.enums.ROLE;
+import reservio.common.enums.Role;
 import reservio.usermanagement.user.dao.UserRepository;
 import reservio.usermanagement.user.dao.UserRoleRepository;
 import reservio.usermanagement.user.entity.User;
@@ -22,7 +21,7 @@ public class UserRoleService {
 
     public void assignRole(@NonNull final String roleId,@NonNull final String userId) {
         log.info("Role assignment started for user {} role {}", userId, roleId);
-        ROLE[] roles = ROLE.values();
+        Role[] roles = Role.values();
         final Optional<User> optionalUser = this.userRepository.findById(Long.parseLong(userId));
 
         if (optionalUser.isPresent()) {

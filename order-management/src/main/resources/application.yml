@@ -3,6 +3,10 @@ POSTGRES_PASSWORD: postgres
 POSTGRES_DB: reservio
 DB_URL: localhost:5432
 
+app:
+  queue:
+    name: reservio
+
 spring:
   application:
     name: order-management
@@ -28,4 +32,4 @@ spring:
           max-interval: 10s
           multiplier: 2
 server:
-  port: 8091
+  port: 9001

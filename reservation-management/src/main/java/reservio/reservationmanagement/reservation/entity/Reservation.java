@@ -6,7 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.models.embeddable.RelatedEntity;
 
 import java.time.LocalDateTime;
@@ -49,7 +49,7 @@ public class Reservation {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private STATUS status;
+    private Status status;
 
     @Column(name = "updatedBy")
     private String updatedBy;

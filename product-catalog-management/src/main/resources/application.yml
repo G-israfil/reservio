@@ -4,6 +4,10 @@ POSTGRES_DB: reservio
 DB_URL: localhost:5432
 
 
+app:
+  queue:
+    name: reservio
+
 spring:
   application:
     name: product-catalog-management
@@ -30,5 +34,6 @@ spring:
           multiplier: 2
 
 
+
 server:
-  port: 8093
+  port: 9004

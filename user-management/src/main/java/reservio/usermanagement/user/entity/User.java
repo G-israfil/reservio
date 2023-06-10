@@ -11,8 +11,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import reservio.common.enums.ROLE;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Role;
+import reservio.common.enums.Status;
 
 
 import java.time.LocalDateTime;
@@ -47,7 +47,7 @@ public class User implements UserDetails{
 
     @Column(name = "roles")
     @Enumerated(EnumType.STRING)
-    private Collection<ROLE> roles;
+    private Collection<Role> roles;
 
     @Column(name = "createdDate")
     @CreatedDate
@@ -65,7 +65,7 @@ public class User implements UserDetails{
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private STATUS status;
+    private Status status;
 
 
     @Column(name = "updatedBy")

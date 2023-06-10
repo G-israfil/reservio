@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.request.LoginFormInfo;
 import reservio.common.models.response.LoginResponse;
@@ -28,7 +28,7 @@ public class UserService {
         final User user = this.modelMapperHelper.map(formInfo,User.class);
 //        user.setRoles(formInfo.getRoles());
         user.setHash(passwordEncoder.encode(formInfo.getPassword()));
-        user.setStatus(STATUS.IN_PROGRESS);
+        user.setStatus(Status.IN_PROGRESS);
         UserCreateUpdateResponse response = this.modelMapperHelper.map(this.userRepository.save(user),UserCreateUpdateResponse.class);
         return response;
     }

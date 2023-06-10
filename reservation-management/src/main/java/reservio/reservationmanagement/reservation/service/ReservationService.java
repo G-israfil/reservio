@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.Status;
 import reservio.common.exceptions.NotFoundException;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.request.CreateUpdateReservationFormInfo;
@@ -24,7 +24,7 @@ public class ReservationService {
 
     public Reservation createReservation(@NonNull @RequestBody final CreateUpdateReservationFormInfo formInfo) {
         final Reservation reservation = modelMapperHelper.map(formInfo, Reservation.class);
-        reservation.setStatus(STATUS.ACTIVE);
+        reservation.setStatus(Status.ACTIVE);
         return this.repository.save(reservation);
     }
 
@@ -36,7 +36,7 @@ public class ReservationService {
             reservation.setEndDate(formInfo.getEndDate());
             reservation.setReservationSize(formInfo.getReservationSize());
             reservation.setDuration(formInfo.getDuration());
-            reservation.setStatus(STATUS.IN_PROGRESS);
+            reservation.setStatus(Status.IN_PROGRESS);
             reservation.setDescription(formInfo.getDescription());
             return this.repository.save(reservation);
         }
@@ -69,7 +69,7 @@ public class ReservationService {
         final Optional<Reservation> optionalReservation = this.repository.findById(Long.parseLong(id));
         if (optionalReservation.isPresent()) {
             final Reservation reservation = optionalReservation.get();
-            reservation.setStatus(STATUS.CANCELLED);
+            reservation.setStatus(Status.CANCELLED);
             return this.repository.save(reservation);
         }
 

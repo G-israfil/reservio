@@ -1,6 +1,6 @@
 package reservio.common.enums;
 
-public enum TERMS {
+public enum Term {
     DAILY,
     WEEKLY,
     MONTHLY,

@@ -1,7 +1,7 @@
 package reservio.common.enums;
 
 public enum
-ACCOUNT_TYPE {
+AccountType {
     USER_ACCOUNT,
     ADMINISTRATOR_ACCOUNT,
     BUSINESS_ACCOUNT,

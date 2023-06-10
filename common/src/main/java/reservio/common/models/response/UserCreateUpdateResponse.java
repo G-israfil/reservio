@@ -2,7 +2,7 @@ package reservio.common.models.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import reservio.common.enums.ROLE;
+import reservio.common.enums.Role;
 import reservio.common.models.embeddable.RelatedEntity;
 import reservio.common.models.referances.RoleRef;
 
@@ -18,7 +18,7 @@ public class UserCreateUpdateResponse {
     private String password;
     private String email;
     private RoleRef role;
-    private List<ROLE> roles;
+    private List<Role> roles;
     private List<RelatedEntity> relatedEntities;
     private LocalDateTime createdDate;
     private LocalDateTime lastUpdatedDate;

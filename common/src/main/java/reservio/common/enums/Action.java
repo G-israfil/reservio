@@ -1,6 +1,6 @@
 package reservio.common.enums;
 
-public enum ACTION {
+public enum Action {
     CREATE,
     DELETE,
     UPDATE,

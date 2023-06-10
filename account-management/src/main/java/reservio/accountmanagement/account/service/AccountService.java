@@ -5,15 +5,16 @@ import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import reservio.accountmanagement.account.dao.AccountRepository;
 import reservio.accountmanagement.account.entitiy.Account;
+import reservio.accountmanagement.account.messaging.MessageReceiver;
+import reservio.accountmanagement.account.messaging.MessageService;
 import reservio.common.contant.Contants;
 import reservio.common.contant.RelatedEntityName;
 import reservio.common.contant.RelatedEntityTypes;
-import reservio.common.enums.ACCOUNT_TYPE;
-import reservio.common.enums.STATUS;
+import reservio.common.enums.AccountType;
+import reservio.common.enums.Status;
 import reservio.common.exceptions.NotFoundException;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.embeddable.RelatedEntity;
@@ -31,17 +32,20 @@ import java.util.Optional;
 public class AccountService {
     private final AccountRepository repository;
     private final ModelMapperHelper modelMapperHelper;
+    private final MessageService messageService;
     public AccountCreateUpdateResponse createAccount(@NonNull final CreateUpdateAccountFormInfo formInfo){
         final Account account = modelMapperHelper.map(formInfo, Account.class);
         if (StringUtils.isBlank(account.getType().toString())) {
-            account.setType(ACCOUNT_TYPE.USER_ACCOUNT);
+            account.setType(AccountType.USER_ACCOUNT);
         }
         RelatedEntity userRelatedEntity = CommonUtils.generateRelatedEntity(RelatedEntityName.USER,formInfo.getUserId(), RelatedEntityTypes.USER);
         account.setOwners(Collections.singletonList(userRelatedEntity));
         RelatedEntity paymentMethod = CommonUtils.generateRelatedEntity(RelatedEntityName.DEFAULT_PAYMENT_METHOD,formInfo.getPaymentMethodId(), RelatedEntityTypes.PAYMENT_METHOD);
         account.setPaymentMethods(Collections.singletonList(paymentMethod));
+        final Account craetedAccount = repository.save(account);
+        messageService.sendAccountCreatedMessage(account.getId());
 
-        return modelMapperHelper.map(repository.save(account),AccountCreateUpdateResponse.class);
+        return modelMapperHelper.map(craetedAccount,AccountCreateUpdateResponse.class);
     }
 
     public AccountCreateUpdateResponse getAccount(@NonNull final Long id){
@@ -57,7 +61,7 @@ public class AccountService {
         repository.deleteById(id);
     }
 
-    public AccountCreateUpdateResponse handleActivateAndDeactivateAccount(@NonNull final Long id,@NonNull final STATUS status){
+    public AccountCreateUpdateResponse handleActivateAndDeactivateAccount(@NonNull final Long id,@NonNull final Status status){
         final Optional<Account> optionalAccount = repository.findById(id);
         if (optionalAccount.isPresent()){
             optionalAccount.get().setStatus(status);

@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import reservio.common.contant.Contants;
-import reservio.common.enums.STATUS;
 import reservio.common.exceptions.NotFoundException;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.request.CreateUpdatePaymentFormInfo;
@@ -15,7 +14,6 @@ import reservio.paymentmanagement.payment.entity.Payment;
 import reservio.paymentmanagement.paymentmethod.entity.PaymentMethod;
 import reservio.paymentmanagement.paymentmethod.service.PaymentMethodService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
