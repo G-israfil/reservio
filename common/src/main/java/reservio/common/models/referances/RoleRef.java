@@ -1,4 +1,4 @@
-package reservio.common.models;
+package reservio.common.models.referances;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;

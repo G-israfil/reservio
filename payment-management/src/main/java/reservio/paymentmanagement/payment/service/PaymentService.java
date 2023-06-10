@@ -5,11 +5,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+import reservio.common.contant.Contants;
 import reservio.common.enums.STATUS;
+import reservio.common.exceptions.NotFoundException;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.request.CreateUpdatePaymentFormInfo;
 import reservio.paymentmanagement.payment.dao.PaymentRepository;
 import reservio.paymentmanagement.payment.entity.Payment;
+import reservio.paymentmanagement.paymentmethod.entity.PaymentMethod;
+import reservio.paymentmanagement.paymentmethod.service.PaymentMethodService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,33 +25,34 @@ import java.util.Optional;
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final ModelMapperHelper modelMapperHelper;
+    private final PaymentMethodService paymentMethodService;
 
     public Payment createPayment(@NonNull @RequestBody final CreateUpdatePaymentFormInfo formInfo){
         final Payment payment = modelMapperHelper.map(formInfo, Payment.class);
+
+        PaymentMethod paymentMethod = this.paymentMethodService.getPaymentMethod(Long.parseLong(formInfo.getPaymentMethodRef().getId()));
+
         return this.paymentRepository.save(payment);
     }
 
-    public Optional<Payment> updatePayment(@NonNull String id, @NonNull @RequestBody final CreateUpdatePaymentFormInfo formInfo) {
-        Optional<Payment> optionalPayment = paymentRepository.findById(Long.valueOf(id));
+    public Payment updatePayment(@NonNull Long id, @NonNull @RequestBody final CreateUpdatePaymentFormInfo formInfo) {
+        Optional<Payment> optionalPayment = paymentRepository.findById(id);
         if (optionalPayment.isPresent()) {
             Payment payment = optionalPayment.get();
-            // Update the payment entity with the new values
-            payment.setType(formInfo.getType());
-            payment.setPaymentItems(formInfo.getPaymentItems());
-            payment.setTotalPrice(formInfo.getTotalPrice());
-            payment.setDescription(formInfo.getDescription());
-            payment.setStatus(STATUS.valueOf(formInfo.getStatus()));
-            payment.setUpdatedBy(formInfo.getUpdatedBy());
-            payment.setLastUpdatedDate(LocalDateTime.now());
-            payment.setVersion(payment.getVersion() + 1);
-
-            return Optional.of(paymentRepository.save(payment));
+            payment = modelMapperHelper.map(formInfo, Payment.class);
+            payment.setId(id);
+            return paymentRepository.save(payment);
         }
-        return Optional.empty();
+        throw new NotFoundException(Contants.ERROR_MESSAGES.PAYMENT_NOT_FOUND + id);
     }
 
-    public Optional<Payment> getPayment(@PathVariable @NonNull String id) {
-        return paymentRepository.findById(Long.valueOf(id));
+    public Payment getPayment(@PathVariable @NonNull Long id) {
+        Optional<Payment> optionalPayment = paymentRepository.findById(id);
+        if (optionalPayment.isPresent()) {
+
+            return optionalPayment.get();
+        }
+        throw new NotFoundException(Contants.ERROR_MESSAGES.PAYMENT_NOT_FOUND + id);
     }
 
     public List<Payment> listPayments(@PathVariable String name, String value) {
@@ -55,8 +60,8 @@ public class PaymentService {
         return null;
     }
 
-    public void deletePayment(@PathVariable @NonNull String id) {
-        paymentRepository.deleteById(Long.valueOf(id));
+    public void deletePayment(@PathVariable @NonNull Long id) {
+        paymentRepository.deleteById(id);
     }
 
     public void refundPayment(@PathVariable String id) {

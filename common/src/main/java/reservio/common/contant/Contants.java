@@ -6,6 +6,7 @@ public class Contants {
         public static String PAYMENT_NOT_FOUND = "Payment not found. id: ";
         public static String PAYMENT_METHOD_NOT_FOUND = "Payment Method not found. id: ";
         public static String TABLE_NOT_FOUND = "Table not found. id: ";
+        public static String ACCOUNT_NOT_FOUND = "Account not found. id: ";
         public static String PRODUCT_SPECIFICATION_NOT_FOUND = "Product Specification not found with id: ";
         public static String TOKEN_IS_NOT_VALID = "Token is not valid";
     }

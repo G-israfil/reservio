@@ -4,15 +4,21 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import reservio.common.contant.Contants;
 import reservio.common.exceptions.NotFoundException;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.request.CreateUpdateRestaurantFormInfo;
 import reservio.common.util.CommonUtils;
+import reservio.restaurantmanagement.floor.entity.Floor;
 import reservio.restaurantmanagement.restaurant.dao.RestaurantRepository;
 import reservio.restaurantmanagement.restaurant.entity.Restaurant;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -46,6 +52,15 @@ public class RestaurantService {
         throw new NotFoundException("Restaurant not found with given id: " + id);
     }
 
+    public void addFloor(@NonNull List<Floor> floors,@NonNull Long id){
+        final Restaurant restaurant = this.repository.findById(id).orElseThrow(() ->new NotFoundException("Restaurant not found id:" + id));
+
+        if(ObjectUtils.isEmpty(restaurant.getFloors())) restaurant.setFloors(new ArrayList<>());
+
+        floors.forEach(floor -> restaurant.getFloors().add(floor));
+
+        this.repository.save(restaurant);
+    }
     public void deleteRestaurant(@PathVariable @NonNull final String id) {
         final Optional<Restaurant> optionalRestaurant = this.repository.findById(Long.parseLong(id));
         if (optionalRestaurant.isPresent()) {
@@ -55,8 +70,8 @@ public class RestaurantService {
             throw new NotFoundException("Restaurant not found with given id: " + id);
     }
 
-    public Restaurant getRestaurant(@PathVariable @NonNull final String id) {
-        final Optional<Restaurant> optionalRestaurant = this.repository.findById(Long.parseLong(id));
+    public Restaurant getRestaurant(@PathVariable @NonNull final Long id) {
+        final Optional<Restaurant> optionalRestaurant = this.repository.findById(id);
         if (optionalRestaurant.isPresent()) {
             return optionalRestaurant.get();
         }

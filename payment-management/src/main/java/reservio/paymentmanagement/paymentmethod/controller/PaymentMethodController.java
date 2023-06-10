@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reservio.common.models.request.CreateUpdatePaymentMethodFormInfo;
 import reservio.common.models.response.PaymentMethodCreateUpdateResponse;
+import reservio.paymentmanagement.paymentmethod.entity.PaymentMethod;
 import reservio.paymentmanagement.paymentmethod.service.PaymentMethodService;
 
 @Controller
@@ -20,19 +21,19 @@ public class PaymentMethodController {
         return ResponseEntity.ok(this.paymentMethodService.createPaymentMethod(formInfo));
     }
 
-    @PostMapping("/paymentMethod/{id}")
-    public ResponseEntity<PaymentMethodCreateUpdateResponse> updatePaymentMethod(@PathVariable @NonNull String id,@RequestBody @NonNull final CreateUpdatePaymentMethodFormInfo formInfo){
-        return ResponseEntity.ok(this.paymentMethodService.updatePaymentMethod(Long.parseLong(id),formInfo));
+    @PatchMapping("/paymentMethod/{id}")
+    public ResponseEntity<PaymentMethodCreateUpdateResponse> updatePaymentMethod(@PathVariable @NonNull Long id,@RequestBody @NonNull final CreateUpdatePaymentMethodFormInfo formInfo){
+        return ResponseEntity.ok(this.paymentMethodService.updatePaymentMethod(id,formInfo));
     }
 
     @DeleteMapping("/paymentMethod/{id}")
-    public ResponseEntity<Void> deletePaymentMethod(@PathVariable @NonNull String id){
-        this.paymentMethodService.deletePaymentMethods(Long.parseLong(id));
+    public ResponseEntity<Void> deletePaymentMethod(@PathVariable @NonNull Long id){
+        this.paymentMethodService.deletePaymentMethods(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/paymentMethod/{id}")
-    public ResponseEntity<PaymentMethodCreateUpdateResponse> getPaymentMethod(@PathVariable @NonNull String id){
-        return ResponseEntity.ok(this.paymentMethodService.getPaymentMethod(Long.parseLong(id)));
+    public ResponseEntity<PaymentMethod> getPaymentMethod(@PathVariable @NonNull Long id){
+        return ResponseEntity.ok(this.paymentMethodService.getPaymentMethod((id)));
     }
 }

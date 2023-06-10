@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reservio.common.models.request.CreateUpdatePaymentFormInfo;
+import reservio.paymentmanagement.payment.entity.Payment;
+import reservio.paymentmanagement.payment.entity.PaymentItem;
 import reservio.paymentmanagement.payment.service.PaymentService;
 
 @Controller
@@ -21,20 +23,20 @@ public class PaymentController {
     }
 
     @PatchMapping("/payment/{id}")
-    public ResponseEntity updatePayment(@PathVariable @NonNull final String id, @RequestBody @NonNull final CreateUpdatePaymentFormInfo formInfo) {
-        return ResponseEntity.ok(this.paymentService.updatePayment(id, formInfo));
+    public ResponseEntity<Payment> updatePayment(@PathVariable @NonNull final String id, @RequestBody @NonNull final CreateUpdatePaymentFormInfo formInfo) {
+        return ResponseEntity.ok(this.paymentService.updatePayment(Long.parseLong(id), formInfo));
     }
 
     @DeleteMapping("/payment/{id}")
     public ResponseEntity<Void> deletePayment(@PathVariable @NonNull final String id) {
-        paymentService.deletePayment(id);
+        paymentService.deletePayment(Long.parseLong(id));
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/payment/{id}")
-    public ResponseEntity getPayment(@PathVariable @NonNull final String id) {
-        this.paymentService.getPayment(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Payment> getPayment(@PathVariable @NonNull final String id) {
+
+        return ResponseEntity.ok(this.paymentService.getPayment(Long.parseLong(id)));
     }
 
     @PostMapping("/payment/refund/{id}")

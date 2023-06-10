@@ -7,6 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import reservio.common.models.embeddable.Position;
+import reservio.common.models.embeddable.Price;
 import reservio.common.models.embeddable.RelatedEntity;
 
 import java.time.LocalDateTime;
@@ -22,15 +24,18 @@ public class RTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "capacity",nullable = false)
-    private int capacity;
+    @Column(name = "capacity", nullable = false)
+    private int chair;
+
+    @Column(name = "type")
+    private String type;
 
     @CreatedDate
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @Column(name = "price",nullable = false)
-    private Double price = null;
+    @Column(name = "price", nullable = false)
+    private Price price = null;
 
     @LastModifiedDate
     @Column(name = "updated_date")
@@ -47,4 +52,6 @@ public class RTable {
 
     @ElementCollection
     private List<RelatedEntity> relatedEntities;
+
+    private Position position;
 }

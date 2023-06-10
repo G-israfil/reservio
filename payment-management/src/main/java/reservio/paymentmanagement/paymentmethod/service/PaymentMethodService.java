@@ -39,16 +39,15 @@ public class PaymentMethodService {
             updatedPaymentMethod.setDescription(formInfo.getDescription());
 
             //Not all should be set.
-            updatedPaymentMethod.setRelatedEntities(formInfo.getRelatedEntities());
 
             return this.modelMapperHelper.map(this.repository.save(updatedPaymentMethod),PaymentMethodCreateUpdateResponse.class);
         }
 
         throw new NotFoundException(Contants.ERROR_MESSAGES.PAYMENT_METHOD_NOT_FOUND + String.valueOf(id));
     }
-    public PaymentMethodCreateUpdateResponse getPaymentMethod(@NonNull final Long id){
+    public PaymentMethod getPaymentMethod(@NonNull final Long id){
         final Optional<PaymentMethod> optionalPaymentMethod = this.repository.findById(id);
-        if (optionalPaymentMethod.isPresent()) return this.modelMapperHelper.map(optionalPaymentMethod.get(),PaymentMethodCreateUpdateResponse.class);
+        if (optionalPaymentMethod.isPresent()) return optionalPaymentMethod.get();
 
         throw new NotFoundException(Contants.ERROR_MESSAGES.PAYMENT_METHOD_NOT_FOUND + String.valueOf(id));
     }

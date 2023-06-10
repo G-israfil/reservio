@@ -2,6 +2,7 @@ package reservio.common.mappers;
 
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ public class ModelMapperHelper {
 
     public ModelMapperHelper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
+        configureModelMapper();
     }
 
     public <S,D> D map(S sourceObject, Class<D> destinationClass){
@@ -27,5 +29,11 @@ public class ModelMapperHelper {
     }
     public <S,D> List<D> mapAll(Collection<S> sourceObjects, Class<D> destinationClass){
         return sourceObjects.stream().map(source -> modelMapper.map(source,destinationClass)).collect(Collectors.toList());
+    }
+    private void configureModelMapper() {
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT)
+                .setFieldMatchingEnabled(true)
+                .setAmbiguityIgnored(true);
     }
 }

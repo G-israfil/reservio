@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import reservio.common.enums.ACCOUNT_TYPE;
 import reservio.common.enums.STATUS;
 import reservio.common.models.embeddable.RelatedEntity;
+import reservio.common.util.CommonUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,10 +18,11 @@ import java.util.UUID;
 @Table(name = "accounts")
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class Account {
     @Id
     @Column(name = "accountId")
-    private Long id;
+    private Long id = CommonUtils.generateUUID();
 
     @Column(name = "name")
     private String name;
@@ -61,13 +64,6 @@ public class Account {
     @Column(name = "trustScore")
     private int trustScore;
 
-    @Column(name = "version")
     @Version
     private int version;
-
-
-    public Account(){
-        id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
-    }
-
 }

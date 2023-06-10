@@ -7,7 +7,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import reservio.common.enums.STATUS;
+import reservio.common.models.embeddable.Price;
 import reservio.common.models.embeddable.RelatedEntity;
+import reservio.common.util.CommonUtils;
+import reservio.paymentmanagement.paymentmethod.entity.PaymentMethod;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,17 +23,17 @@ import java.util.UUID;
 public class Payment {
     @Id
     @Column(name = "payment_id")
-    private Long id;
+    private Long id = CommonUtils.generateUUID();
 
     @Column(name = "type")
     private String type;
 
     @Column(name = "paymentItems")
-    @OneToMany(mappedBy = "payment")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<PaymentItem> paymentItems;
 
     @Column(name = "totalPrice")
-    private Double totalPrice;
+    private Price totalPrice;
 
     @Column(name = "description")
     private String description;
@@ -41,6 +44,9 @@ public class Payment {
     @Column(name = "createdDate")
     @CreatedDate
     private LocalDateTime createdDate;
+
+    @ManyToOne()
+    private PaymentMethod paymentMethod;
 
     @Column(name = "lastUpdatedDate")
     @LastModifiedDate
@@ -63,9 +69,5 @@ public class Payment {
     @Column(name = "version")
     @Version
     private int version;
-
-    public Payment(){
-        id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
-    }
 
 }

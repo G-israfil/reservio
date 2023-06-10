@@ -1,6 +1,7 @@
 package reservio.accountmanagement.account.service;
 
 import io.micrometer.common.util.StringUtils;
+import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import reservio.accountmanagement.account.dao.AccountRepository;
 import reservio.accountmanagement.account.entitiy.Account;
+import reservio.common.contant.Contants;
 import reservio.common.contant.RelatedEntityName;
 import reservio.common.contant.RelatedEntityTypes;
 import reservio.common.enums.ACCOUNT_TYPE;
@@ -25,7 +27,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@ComponentScan({"reservio.accountmanagement","reservio.common"})
+@Transactional
 public class AccountService {
     private final AccountRepository repository;
     private final ModelMapperHelper modelMapperHelper;
@@ -42,22 +44,21 @@ public class AccountService {
         return modelMapperHelper.map(repository.save(account),AccountCreateUpdateResponse.class);
     }
 
-    public AccountCreateUpdateResponse getAccount(@NonNull final String id){
-        final Optional<Account> optionalAccount = repository.findById(Long.parseLong(id));
-        if (optionalAccount.isPresent()) return modelMapperHelper.map(optionalAccount.get(),AccountCreateUpdateResponse.class);
-        throw new  NotFoundException("User not found with given id: " + id);
+    public AccountCreateUpdateResponse getAccount(@NonNull final Long id){
+        final Account account = repository.findById(id).orElseThrow(() -> new NotFoundException(Contants.ERROR_MESSAGES.ACCOUNT_NOT_FOUND + id));
+        return modelMapperHelper.map(account,AccountCreateUpdateResponse.class);
     }
 
-    public AccountCreateUpdateResponse updateAccount(@NonNull final CreateUpdateAccountFormInfo formInfo){
+    public AccountCreateUpdateResponse updateAccount(@NonNull Long id,@NonNull final CreateUpdateAccountFormInfo formInfo){
         return new AccountCreateUpdateResponse();
     }
 
-    public void deleteAccount(@NonNull final String id){
-        repository.deleteById(Long.parseLong(id));
+    public void deleteAccount(@NonNull final Long id){
+        repository.deleteById(id);
     }
 
-    public AccountCreateUpdateResponse handleActivateAndDeactivateAccount(@NonNull final String id,@NonNull final STATUS status){
-        final Optional<Account> optionalAccount = repository.findById(Long.parseLong(id));
+    public AccountCreateUpdateResponse handleActivateAndDeactivateAccount(@NonNull final Long id,@NonNull final STATUS status){
+        final Optional<Account> optionalAccount = repository.findById(id);
         if (optionalAccount.isPresent()){
             optionalAccount.get().setStatus(status);
             return modelMapperHelper.map(optionalAccount.get(),AccountCreateUpdateResponse.class);

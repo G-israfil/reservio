@@ -7,8 +7,8 @@ import reservio.common.enums.ACCOUNT_TYPE;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreateUpdateAccountFormInfo {
-    private String userId;
-    private ACCOUNT_TYPE type;
-    private String description;
-    private String paymentMethodId;
+        private String userId;
+        private ACCOUNT_TYPE type;
+        private String description;
+        private String paymentMethodId;
 }

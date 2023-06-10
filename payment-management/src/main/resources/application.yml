@@ -3,8 +3,8 @@ POSTGRES_PASSWORD: postgres
 POSTGRES_DB: reservio
 DB_URL: localhost:5432
 
-server:
-  port: 8092
+EUREKA_ENABLED: true
+EUREKA_URL: http://localhost:8761/eureka
 
 spring:
   application:
@@ -31,4 +31,14 @@ spring:
           max-interval: 10s
           multiplier: 2
 
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: ${EUREKA_ENABLED}
 
+
+server:
+  port: 8092

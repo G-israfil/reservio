@@ -12,12 +12,14 @@ import reservio.common.models.request.CreateUpdateTableFormInfo;
 import reservio.common.util.CommonUtils;
 import reservio.restaurantmanagement.floor.dao.FloorRepository;
 import reservio.restaurantmanagement.floor.entity.Floor;
-import reservio.restaurantmanagement.table.entity.RTable;
+import reservio.restaurantmanagement.restaurant.dao.RestaurantRepository;
+import reservio.restaurantmanagement.restaurant.entity.Restaurant;
+import reservio.restaurantmanagement.restaurant.service.RestaurantService;
 import reservio.restaurantmanagement.table.service.TableService;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +27,16 @@ public class FloorService {
 
     private final ModelMapperHelper modelMapperHelper;
     private final FloorRepository repository;
-    private final TableService tableService;
+    private final RestaurantService restaurantService;
     public Floor createRestaurant(@NonNull @RequestBody CreateUpdateFloorFormInfo formInfo) {
         final Floor floor = modelMapperHelper.map(formInfo, Floor.class);
+
         floor.setId(CommonUtils.generateUUID());
-        floor.setCapacity(formInfo.getTables().stream().map(CreateUpdateTableFormInfo::getCapacity).mapToInt(Integer::intValue).sum());
-        return this.repository.save(floor);
+        floor.setCapacity(formInfo.getTables().stream().map(CreateUpdateTableFormInfo::getChair).mapToInt(Integer::intValue).sum());
+
+        final Floor createdFloor = this.repository.save(floor);
+        this.restaurantService.addFloor(Collections.singletonList(floor),formInfo.getRestaurantId());
+        return createdFloor;
     }
 
     public Floor updateFloor(@PathVariable @NonNull final Long id, @NonNull @RequestBody final CreateUpdateFloorFormInfo formInfo) {
@@ -39,7 +45,7 @@ public class FloorService {
             Floor floor = optionalFloor.get();
             floor = modelMapperHelper.map(formInfo, Floor.class);
             floor.setId(id);
-            floor.setCapacity(formInfo.getTables().stream().map(CreateUpdateTableFormInfo::getCapacity).mapToInt(Integer::intValue).sum());
+            floor.setCapacity(formInfo.getTables().stream().map(CreateUpdateTableFormInfo::getChair).mapToInt(Integer::intValue).sum());
             return this.repository.save(floor);
         }
         throw new NotFoundException("Restaurant not found with given id: " + id);

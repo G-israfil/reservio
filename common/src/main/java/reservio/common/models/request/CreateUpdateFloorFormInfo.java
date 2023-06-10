@@ -12,4 +12,5 @@ public class CreateUpdateFloorFormInfo {
     private int capacity;
     private Boolean stage = false;
     private int level;
+    private Long restaurantId;
 }

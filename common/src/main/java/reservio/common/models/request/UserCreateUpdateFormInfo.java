@@ -3,7 +3,7 @@ package reservio.common.models.request;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import reservio.common.models.embeddable.RelatedEntity;
-import reservio.common.models.RoleRef;
+import reservio.common.models.referances.RoleRef;
 
 import java.util.List;
 

@@ -10,4 +10,5 @@ public class Properties {
     private String description;
     private String value;
     private String note = null;
+    private Boolean required = false;
 }

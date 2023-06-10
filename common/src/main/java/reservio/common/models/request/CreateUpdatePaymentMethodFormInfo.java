@@ -1,6 +1,7 @@
 package reservio.common.models.request;
 
 import lombok.Data;
+import reservio.common.models.embeddable.Properties;
 import reservio.common.models.embeddable.RelatedEntity;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public class CreateUpdatePaymentMethodFormInfo {
 
     private String name;
 
-    private List<RelatedEntity> relatedEntities;
+    private List<Properties> properties;
 }

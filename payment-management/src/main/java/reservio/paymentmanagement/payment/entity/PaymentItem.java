@@ -1,12 +1,10 @@
 package reservio.paymentmanagement.payment.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import reservio.common.models.embeddable.Price;
+import reservio.common.util.CommonUtils;
 
-import java.util.UUID;
 
 @Entity
 @Table(name = "payment_items")
@@ -14,8 +12,8 @@ import java.util.UUID;
 public class PaymentItem {
 
     @Id
-    @Column(name = "payment_item_id")
-    private Long id;
+    @Column(name = "paymentItemId")
+    private Long id = CommonUtils.generateUUID();
 
     @Column(name = "name")
     private String name;
@@ -23,10 +21,7 @@ public class PaymentItem {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "item_price")
-    private Double itemPrice;
+    @Column(name = "itemPrice")
+    private Price itemPrice;
 
-    public PaymentItem(){
-        id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
-    }
 }

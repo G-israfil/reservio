@@ -1,6 +1,7 @@
 package reservio.common.models.response;
 
 import lombok.Data;
+import reservio.common.models.embeddable.Properties;
 import reservio.common.models.embeddable.RelatedEntity;
 
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Data
 public class PaymentMethodCreateUpdateResponse {
+    private String id = null;
 
     private String description;
 
@@ -23,5 +25,5 @@ public class PaymentMethodCreateUpdateResponse {
 
     private String createdBy;
 
-    private List<RelatedEntity> relatedEntities;
+    private List<Properties> properties;
 }

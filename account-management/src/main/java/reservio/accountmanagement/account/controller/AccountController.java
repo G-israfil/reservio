@@ -27,33 +27,33 @@ public class AccountController{
     }
 
     @GetMapping("/account/{id}")
-    public ResponseEntity<AccountCreateUpdateResponse> getAccount(@NonNull @PathVariable String id){
-        return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, STATUS.ACTIVE));
+    public ResponseEntity<AccountCreateUpdateResponse> getAccount(@NonNull @PathVariable Long id){
+        return ResponseEntity.ok(this.accountService.getAccount(id));
     }
 
     @PatchMapping("/account/{id}")
-    public ResponseEntity<AccountCreateUpdateResponse> updateAccount(@NonNull @PathVariable String id){
-        return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, STATUS.ACTIVE));
+    public ResponseEntity<AccountCreateUpdateResponse> updateAccount(@NonNull @PathVariable Long id,@NonNull @RequestBody final CreateUpdateAccountFormInfo formInfo){
+        return ResponseEntity.ok(this.accountService.updateAccount(id, formInfo));
     }
 
     @DeleteMapping("/account/{id}")
-    public ResponseEntity<String> deleteAccount(@NonNull @PathVariable String id){
+    public ResponseEntity<String> deleteAccount(@NonNull @PathVariable Long id){
         this.accountService.deleteAccount(id);
         return ResponseEntity.ok("Account deleted successfully");
     }
 
     @PostMapping("/account/deactivate/{id}")
-    public ResponseEntity<AccountCreateUpdateResponse> deactivateAccount(@NonNull @PathVariable String id){
+    public ResponseEntity<AccountCreateUpdateResponse> deactivateAccount(@NonNull @PathVariable Long id){
         return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, STATUS.DEACTIVATED));
     }
 
     @PostMapping("/account/suspend/{id}")
-    public ResponseEntity<AccountCreateUpdateResponse> suspendAccount(@NonNull @PathVariable String id){
+    public ResponseEntity<AccountCreateUpdateResponse> suspendAccount(@NonNull @PathVariable Long id){
         return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, STATUS.SUSPENDED));
     }
 
     @PostMapping("/account/resume/{id}")
-    public ResponseEntity<AccountCreateUpdateResponse> resumeAccount(@NonNull @PathVariable String id){
+    public ResponseEntity<AccountCreateUpdateResponse> resumeAccount(@NonNull @PathVariable Long id){
         return ResponseEntity.ok(this.accountService.handleActivateAndDeactivateAccount(id, STATUS.ACTIVE));
     }
 }

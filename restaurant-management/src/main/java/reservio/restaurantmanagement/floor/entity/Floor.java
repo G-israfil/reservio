@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import reservio.common.models.embeddable.Price;
 import reservio.restaurantmanagement.table.entity.RTable;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class Floor {
     private Long id;
 
     @Column(name = "price")
-    private Double price;
+    private Price price;
 
     @Column(name = "owner")
     private String owner;

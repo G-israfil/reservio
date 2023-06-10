@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import reservio.common.enums.ROLE;
 import reservio.common.models.embeddable.RelatedEntity;
-import reservio.common.models.RoleRef;
+import reservio.common.models.referances.RoleRef;
 
 import java.time.LocalDateTime;
 import java.util.List;
