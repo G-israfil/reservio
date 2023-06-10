@@ -1,25 +1,17 @@
 package reservio.subscriptionmanagement.entity;
 
-<<<<<<< Updated upstream:subscription-management/src/main/java/reservio/subscriptionmanagement/model/Subscription.java
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-=======
-import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
->>>>>>> Stashed changes:subscription-management/src/main/java/reservio/subscriptionmanagement/entity/Subscription.java
 import reservio.common.models.RelatedEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
-<<<<<<< Updated upstream:subscription-management/src/main/java/reservio/subscriptionmanagement/model/Subscription.java
 import java.util.UUID;
-=======
->>>>>>> Stashed changes:subscription-management/src/main/java/reservio/subscriptionmanagement/entity/Subscription.java
+
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -65,7 +57,6 @@ public class Subscription {
     private String totalCycle;
 
     @ElementCollection
-<<<<<<< Updated upstream:subscription-management/src/main/java/reservio/subscriptionmanagement/model/Subscription.java
     private List<RelatedEntity> relatedEntities;
     @Column(name = "version")
     @Version
@@ -74,7 +65,7 @@ public class Subscription {
         id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
     }
 
-=======
+    @ElementCollection
     private List<RelatedEntity> payments;
 
     @ElementCollection
@@ -82,5 +73,4 @@ public class Subscription {
 
     @ElementCollection
     private List<RelatedEntity> relatedOrganizations;
->>>>>>> Stashed changes:subscription-management/src/main/java/reservio/subscriptionmanagement/entity/Subscription.java
 }

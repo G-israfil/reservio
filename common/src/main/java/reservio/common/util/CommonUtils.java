@@ -5,6 +5,8 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import reservio.common.models.RelatedEntity;
 
+import java.util.UUID;
+
 @UtilityClass
 public class CommonUtils {
 
@@ -18,5 +20,9 @@ public class CommonUtils {
         relatedEntity.setType(type);
         relatedEntity.setValue(value);
         return relatedEntity;
+    }
+
+    static public Long generateUUID(){
+        return UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     }
 }

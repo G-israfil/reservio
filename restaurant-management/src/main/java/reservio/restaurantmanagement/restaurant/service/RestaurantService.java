@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import reservio.common.exceptions.NotFoundException;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.request.CreateUpdateRestaurantFormInfo;
+import reservio.common.util.CommonUtils;
 import reservio.restaurantmanagement.restaurant.dao.RestaurantRepository;
 import reservio.restaurantmanagement.restaurant.entity.Restaurant;
 

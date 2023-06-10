@@ -1,14 +1,21 @@
 package reservio.restaurantmanagement.restaurant.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import jakarta.persistence.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import reservio.restaurantmanagement.floor.entity.Floor;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@EntityListeners(AuditingEntityListener.class)
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +43,7 @@ public class Restaurant {
     private String country;
 
     @Column(name = "city", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private City city;
+    private String city;
 
     @Column(name = "address", nullable = false)
     private String address;
@@ -54,6 +60,12 @@ public class Restaurant {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "floor",nullable = false)
+    private int floorCount;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Floor> floors;
+
     @Column(name = "created_date")
     @CreatedDate
     private LocalDateTime createdDate;
@@ -62,9 +74,4 @@ public class Restaurant {
     @LastModifiedDate
     private LocalDateTime lastUpdatedDate;
 
-    public enum City {
-        CITY1,
-        CITY2,
-        CITY3,
-    }
 }

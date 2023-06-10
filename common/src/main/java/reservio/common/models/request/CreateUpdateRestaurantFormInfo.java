@@ -3,6 +3,8 @@ package reservio.common.models.request;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class CreateUpdateRestaurantFormInfo {
@@ -19,4 +21,6 @@ public class CreateUpdateRestaurantFormInfo {
     private Boolean pickup;
     private String username;
     private String email;
+
+    private List<CreateUpdateFloorFormInfo> floors;
 }
