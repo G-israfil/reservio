@@ -1,12 +1,9 @@
 package reservio.common.models.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import reservio.common.enums.STATUS;
-import reservio.common.models.RelatedEntity;
+import reservio.common.models.embeddable.RelatedEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

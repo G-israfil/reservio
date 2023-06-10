@@ -4,27 +4,68 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import reservio.common.contant.Contants;
+import reservio.common.enums.STATUS;
+import reservio.common.exceptions.NotFoundException;
+import reservio.common.mappers.ModelMapperHelper;
+import reservio.common.models.request.CreateUpdateProductSpecificationFormInfo;
+import reservio.productcatalogmanagement.productcatalog.dao.ProductSpecificationRepository;
+import reservio.productcatalogmanagement.productcatalog.entity.ProductSpecification;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ProductCatalogService {
 
-
-    private void createProductSpecification(){
-
+    private final ProductSpecificationRepository repository;
+    private final ModelMapperHelper modelMapperHelper;
+    public ProductSpecification createProductSpecification(@NonNull CreateUpdateProductSpecificationFormInfo formInfo){
+        final ProductSpecification productSpecification = modelMapperHelper.map(formInfo,ProductSpecification.class);
+        productSpecification.setStatus(STATUS.ACTIVE);
+        return repository.save(productSpecification);
     }
 
-    private void updateProductSpecification(String id){
-
+    public ProductSpecification updateProductSpecification(@NonNull Long id,@NonNull CreateUpdateProductSpecificationFormInfo formInfo){
+        final Optional<ProductSpecification> optionalProductSpecification = this.repository.findById(id);
+        if(optionalProductSpecification.isPresent()){
+            ProductSpecification productSpecification = optionalProductSpecification.get();
+            productSpecification = modelMapperHelper.map(formInfo, ProductSpecification.class);
+            productSpecification.setId(id);
+            this.repository.save(productSpecification);
+            return productSpecification;
+        }
+        throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
     }
 
-    private void deleteProductSpecification( String id){
-
+    public void cancelProductSpecification(@NonNull Long id){
+        final Optional<ProductSpecification> optionalProductSpecification = this.repository.findById(id);
+        if(optionalProductSpecification.isPresent()){
+            final ProductSpecification productSpecification = optionalProductSpecification.get();
+            productSpecification.setStatus(STATUS.CANCELLED);
+            this.repository.save(productSpecification);
+        }
+        throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
+    }
+    public void activateProductSpecification(@NonNull Long id){
+        final Optional<ProductSpecification> optionalProductSpecification = this.repository.findById(id);
+        if(optionalProductSpecification.isPresent()){
+            final ProductSpecification productSpecification = optionalProductSpecification.get();
+            productSpecification.setStatus(STATUS.ACTIVE);
+            this.repository.save(productSpecification);
+        }
+        throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
+    }
+    public void deleteProductSpecification(@NonNull Long id){
+        repository.findById(id);
     }
 
-    private void getProductSpecification(String id){
-
+    public ProductSpecification getProductSpecification(@NonNull Long id){
+        final Optional<ProductSpecification> optionalProductSpecification = this.repository.findById(id);
+        if(optionalProductSpecification.isPresent()){
+            return optionalProductSpecification.get();
+        }
+        throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
     }
 }

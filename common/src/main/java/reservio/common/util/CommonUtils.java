@@ -3,7 +3,7 @@ package reservio.common.util;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
-import reservio.common.models.RelatedEntity;
+import reservio.common.models.embeddable.RelatedEntity;
 
 import java.util.UUID;
 

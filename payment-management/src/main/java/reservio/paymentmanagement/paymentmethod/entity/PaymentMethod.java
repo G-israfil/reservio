@@ -2,7 +2,7 @@ package reservio.paymentmanagement.paymentmethod.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import reservio.common.models.RelatedEntity;
+import reservio.common.models.embeddable.RelatedEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

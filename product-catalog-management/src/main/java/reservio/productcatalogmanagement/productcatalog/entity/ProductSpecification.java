@@ -4,21 +4,29 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import reservio.common.enums.STATUS;
+import reservio.common.models.embeddable.Price;
+import reservio.common.models.embeddable.Properties;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.List;
 
 @Table(name = "product_specifications")
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class ProductSpecification {
     @Id
     @Column(name = "product_specification_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "type")
     private String type;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "description")
     private String description;
@@ -26,6 +34,12 @@ public class ProductSpecification {
     @Column(name = "createdDate")
     @CreatedDate
     private LocalDateTime createdDate;
+
+    @Column(name = "price")
+    private Price price;
+
+    @ElementCollection
+    private List<Properties> properties;
 
     @Column(name = "lastUpdatedDate")
     @LastModifiedDate
@@ -42,7 +56,4 @@ public class ProductSpecification {
     @Version
     private int version;
 
-    public ProductSpecification(){
-        id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
-    }
 }

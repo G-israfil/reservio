@@ -1,7 +1,7 @@
 package reservio.common.models.response;
 
 import lombok.Data;
-import reservio.common.models.RelatedEntity;
+import reservio.common.models.embeddable.RelatedEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

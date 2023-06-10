@@ -2,7 +2,6 @@ package reservio.common.models.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import reservio.common.models.RelatedEntity;
 
 import java.util.List;
 

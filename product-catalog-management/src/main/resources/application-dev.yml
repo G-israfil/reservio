@@ -20,6 +20,6 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 server:
-  port: 8097
+  port: 8093
 
 

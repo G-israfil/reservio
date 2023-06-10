@@ -6,6 +6,7 @@ DB_URL: localhost:5432
 
 EUREKA_ENABLED: true
 EUREKA_URL: http://localhost:8761/eureka
+
 spring:
   application:
     name: user-management
