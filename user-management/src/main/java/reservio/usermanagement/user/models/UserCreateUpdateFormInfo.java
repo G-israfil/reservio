@@ -1,18 +1,28 @@
 package reservio.usermanagement.user.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import reservio.usermanagement.enums.ROLE;
 
-import java.util.Collection;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class UserCreateUpdateFormInfo {
 
-    private final String username;
-    private final String password;
-    private final String email;
-    private final String name;
-    private final String lastname;
-    private final List<ROLE> roles;
+    @NonNull
+    private String username;
+    @NonNull
+    private String password;
+    @NonNull
+    private String email;
+    @NonNull
+    private String name;
+    @NonNull
+    private String lastname;
+    @NonNull
+    private List<ROLE> roles;
 }
+

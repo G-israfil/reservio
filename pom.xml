@@ -20,7 +20,7 @@
         <module>user-management</module>
         <module>account-management</module>
         <module>restaurant-management</module>
-        <module>reservio-gateway</module>
+        <module>gateway-reservio</module>
         <module>reservation-management</module>
         <module>order-management</module>
         <module>subscription-management</module>

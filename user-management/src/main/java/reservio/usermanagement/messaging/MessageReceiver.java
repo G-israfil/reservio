@@ -32,7 +32,7 @@ public class MessageReceiver {
     }
 
     public void logIncomingMessages(EventMessage message){
-        log.info("Message geldi");
+        log.info("User Management Message geldi");
     }
 
 }

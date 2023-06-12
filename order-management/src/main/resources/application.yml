@@ -3,9 +3,31 @@ POSTGRES_PASSWORD: postgres
 POSTGRES_DB: reservio
 DB_URL: localhost:5432
 
+ACCOUNT_MANAGEMENT_URL: http://ACCOUNT-MANAGEMENT
+ORDER_MANAGEMENT_URL: http://ORDER-MANAGEMENT
+PAYMENT_MANAGEMENT_URL: http://PAYMENT-MANAGEMENT
+PRODUCT_CATALOG_MANAGEMENT_URL: http://PRODUCT-CATALOG-MANAGEMENT
+RESERVATION_MANAGEMENT_URL: http://RESERVATION-MANAGEMENT
+RESTAURANT_MANAGEMENT_URL: http://RESTAURANT-MANAGEMENT
+STORAGE_MANAGEMENT_URL: http://localhost:9007
+SUBSCRIPTION_MANAGEMENT_URL: http://SUBSCRIPTION-MANAGEMENT
+USER_MANAGEMENT_URL: http://USER-MANAGEMENT
+
 app:
   queue:
-    name: reservio
+    name: order
+  jwt-secret:
+    123456789ig
+  urls:
+    account-management: ${ACCOUNT_MANAGEMENT_URL}
+    order-management: ${ORDER_MANAGEMENT_URL}
+    product-catalog-management: ${PRODUCT_CATALOG_MANAGEMENT_URL}
+    reservation-management: ${RESERVATION_MANAGEMENT_URL}
+    restaurant-management: ${RESTAURANT_MANAGEMENT_URL}
+    storage-management: ${STORAGE_MANAGEMENT_URL}
+    subscription-management: ${SUBSCRIPTION_MANAGEMENT_URL}
+    user-management: ${USER_MANAGEMENT_URL}
+    payment-management: ${PAYMENT_MANAGEMENT_URL}
 
 spring:
   application:

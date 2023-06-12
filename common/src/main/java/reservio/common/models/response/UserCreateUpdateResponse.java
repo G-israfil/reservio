@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserCreateUpdateResponse {
+    private Long id;
     private String username;
     private String name;
     private String lastname;
@@ -25,4 +26,7 @@ public class UserCreateUpdateResponse {
     private String createdBy;
     private String updatedBy;
     private String status;
+    private String token;
+    private String tokenType;
+    private String refreshToken;
 }

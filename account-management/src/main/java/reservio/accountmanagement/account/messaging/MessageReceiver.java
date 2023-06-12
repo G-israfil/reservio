@@ -34,7 +34,7 @@ public class MessageReceiver {
     }
 
     public void logIncomingMessages(EventMessage message){
-        log.info("Message geldi");
+        log.info("Account Service Message geldi");
     }
 
 }

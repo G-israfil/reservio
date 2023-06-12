@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import reservio.common.queue.AccountCreatedEvent;
+import reservio.common.queue.events.AccountCreatedEvent;
 import reservio.common.queue.EventType;
 
 

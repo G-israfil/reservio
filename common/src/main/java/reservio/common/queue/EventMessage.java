@@ -1,3 +1,8 @@
 package reservio.common.queue;
 
-public abstract class EventMessage {}
+import lombok.Data;
+
+@Data
+public abstract class EventMessage {
+    private Long id;
+}

@@ -12,6 +12,8 @@ import reservio.common.models.response.UserCreateUpdateResponse;
 import reservio.usermanagement.user.models.UserCreateUpdateFormInfo;
 import reservio.usermanagement.user.services.UserService;
 
+import java.io.UnsupportedEncodingException;
+
 @Controller
 @CrossOrigin("*")
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ import reservio.usermanagement.user.services.UserService;
 public class UserController {
     private final UserService userService;
     @PostMapping("/user")
-    public ResponseEntity<UserCreateUpdateResponse> createUser(@RequestBody final UserCreateUpdateFormInfo formInfo){
+    public ResponseEntity<UserCreateUpdateResponse> createUser(@RequestBody final UserCreateUpdateFormInfo formInfo) throws UnsupportedEncodingException {
         return ResponseEntity.ok(this.userService.createUser(formInfo));
     }
 

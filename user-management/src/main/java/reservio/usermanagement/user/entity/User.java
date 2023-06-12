@@ -8,17 +8,15 @@ import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import reservio.common.enums.Role;
 import reservio.common.enums.Status;
+import reservio.common.util.CommonUtils;
 
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -26,10 +24,10 @@ import java.util.stream.Collectors;
 @Table(name = "users")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @EntityListeners(AuditingEntityListener.class)
-public class User implements UserDetails{
+public class User{
     @Id
     @Column(name = "userId")
-    private Long id;
+    private Long id = CommonUtils.generateUUID();
 
     @Column(name = "name")
     private String name;
@@ -47,7 +45,7 @@ public class User implements UserDetails{
 
     @Column(name = "roles")
     @Enumerated(EnumType.STRING)
-    private Collection<Role> roles;
+    private List<Role> roles;
 
     @Column(name = "createdDate")
     @CreatedDate
@@ -83,37 +81,4 @@ public class User implements UserDetails{
     @Column(name = "version")
     @Version
     private int version;
-    public User(){
-        id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
-    }
-
-    @Override
-    public String getPassword() {
-        return hash;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return !locked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
 }

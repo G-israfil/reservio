@@ -1,14 +1,18 @@
 package reservio.common.models.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LoginResponse {
-    private final String token;
-    private final String expired;
-    private final String tokentype;
-    private final String refreshToken;
+
+    private String username;
+    private String email;
+    private String token;
+    private String expired;
+    private String tokenType;
+    private String refreshToken;
 }

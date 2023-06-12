@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reservio.accountmanagement.account.dao.AccountRepository;
 import reservio.accountmanagement.account.entitiy.Account;
-import reservio.accountmanagement.account.messaging.MessageReceiver;
 import reservio.accountmanagement.account.messaging.MessageService;
 import reservio.common.contant.Contants;
 import reservio.common.contant.RelatedEntityName;
@@ -34,6 +33,7 @@ public class AccountService {
     private final ModelMapperHelper modelMapperHelper;
     private final MessageService messageService;
     public AccountCreateUpdateResponse createAccount(@NonNull final CreateUpdateAccountFormInfo formInfo){
+        log.info("Account creation started with. Request body ==> " + formInfo);
         final Account account = modelMapperHelper.map(formInfo, Account.class);
         if (StringUtils.isBlank(account.getType().toString())) {
             account.setType(AccountType.USER_ACCOUNT);
