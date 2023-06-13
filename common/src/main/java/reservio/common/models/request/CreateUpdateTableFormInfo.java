@@ -10,5 +10,6 @@ import reservio.common.models.embeddable.Price;
 public class CreateUpdateTableFormInfo {
     private int chair;
     private Price price;
+    private String type;
     private Position position;
 }

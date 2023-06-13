@@ -77,4 +77,7 @@ public class RestaurantService {
         }
         throw new NotFoundException("Restaurant not found with given id: " + id);
     }
+    public List<Restaurant> getAllRestaurant(){
+        return this.repository.findAll();
+    }
 }

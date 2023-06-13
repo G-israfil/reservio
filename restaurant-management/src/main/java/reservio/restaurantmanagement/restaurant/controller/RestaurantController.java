@@ -10,6 +10,8 @@ import reservio.common.models.request.CreateUpdateRestaurantFormInfo;
 import reservio.restaurantmanagement.restaurant.entity.Restaurant;
 import reservio.restaurantmanagement.restaurant.service.RestaurantService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequiredArgsConstructor
@@ -38,6 +40,11 @@ public class RestaurantController {
     @GetMapping("/restaurant/{id}")
     public ResponseEntity<Restaurant> getRestaurant(@PathVariable @NonNull final Long id) {
         return ResponseEntity.ok(this.restaurantService.getRestaurant(id));
+    }
+    @GetMapping("/restaurantAll")
+    public ResponseEntity<List<Restaurant>> getAllRestaurant() {
+        List<Restaurant> restaurants = this.restaurantService.getAllRestaurant();
+        return ResponseEntity.ok(restaurants);
     }
 
 }
