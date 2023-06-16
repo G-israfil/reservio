@@ -48,6 +48,9 @@ public class GatewayConfig {
                 .route(p -> p
                         .path("/userManagement/**")
                         .uri(this.userManagementUrl))
+                .route(p -> p
+                        .path("/productCatalogManagement/**")
+                        .uri(this.userManagementUrl))
                 .build();
     }
 
