@@ -21,6 +21,7 @@ public class CreateUpdateRestaurantFormInfo {
     private Boolean pickup;
     private String username;
     private String email;
+    private Long relatedUserId;
 
     private List<CreateUpdateFloorFormInfo> floors;
 }

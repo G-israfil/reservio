@@ -29,10 +29,9 @@ public class RestaurantService {
     private final ModelMapperHelper modelMapperHelper;
     private final JwtUtils jwtUtils;
 
-    public Restaurant createRestaurant(@NonNull @RequestBody CreateUpdateRestaurantFormInfo formInfo,String authHeader) {
-        Long userId = jwtUtils.extractUserId(authHeader);
+    public Restaurant createRestaurant(@NonNull @RequestBody CreateUpdateRestaurantFormInfo formInfo) {
         final Restaurant restaurant = modelMapperHelper.map(formInfo, Restaurant.class);
-        restaurant.setOwnerId(userId);
+        restaurant.setOwnerId(formInfo.getRelatedUserId());
         return this.repository.save(restaurant);
     }
 

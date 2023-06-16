@@ -23,9 +23,8 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @PostMapping("/restaurant")
-    public ResponseEntity<Restaurant> createRestaurant(@RequestHeader @NonNull String authorization,@NonNull @RequestBody final CreateUpdateRestaurantFormInfo formInfo) {
-        if(StringUtils.isEmpty(authorization)) throw new UnAuthorizedException("Token is not valid");
-        return ResponseEntity.ok(this.restaurantService.createRestaurant(formInfo,authorization));
+    public ResponseEntity<Restaurant> createRestaurant(@NonNull @RequestBody final CreateUpdateRestaurantFormInfo formInfo) {
+        return ResponseEntity.ok(this.restaurantService.createRestaurant(formInfo));
     }
 
     @PatchMapping("/restaurant/{id}")

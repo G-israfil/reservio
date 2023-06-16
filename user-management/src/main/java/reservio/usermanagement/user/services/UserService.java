@@ -54,7 +54,6 @@ public class UserService {
 
     public LoginResponse login(@NonNull final LoginFormInfo formInfo) throws UnsupportedEncodingException {
         final User user = this.userRepository.findByUsernameOrEmail(formInfo.getEmailOrUsername());
-
         if(!DigestUtils.sha256Hex(formInfo.getPassword()).equals(user.getHash())) throw new UnAuthorizedException("Password is incorrect!!");
         final String rolesAsString = user.getRoles().stream().map(Enum::toString).collect(Collectors.joining(","));
         String restaurantsAsString = "";
