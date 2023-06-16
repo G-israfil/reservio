@@ -3,6 +3,7 @@ package reservio.common.models.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import reservio.common.enums.Role;
+import reservio.common.enums.Status;
 import reservio.common.models.embeddable.RelatedEntity;
 import reservio.common.models.referances.RoleRef;
 
@@ -25,7 +26,7 @@ public class UserCreateUpdateResponse {
     private LocalDateTime lastUpdatedDate;
     private String createdBy;
     private String updatedBy;
-    private String status;
+    private Status status;
     private String token;
     private String tokenType;
     private String refreshToken;

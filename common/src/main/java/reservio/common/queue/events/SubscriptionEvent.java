@@ -7,4 +7,5 @@ import reservio.common.queue.EventMessage;
 @Data
 public class SubscriptionEvent extends EventMessage {
     private Status status;
+    private String id;
 }

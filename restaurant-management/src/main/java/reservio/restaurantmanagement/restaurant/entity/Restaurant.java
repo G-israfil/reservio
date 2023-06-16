@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import reservio.common.util.CommonUtils;
 import reservio.restaurantmanagement.floor.entity.Floor;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ import java.util.List;
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id = CommonUtils.generateUUID();
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -65,6 +66,9 @@ public class Restaurant {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Floor> floors;
+
+    @Column(name = "ownerId")
+    private Long ownerId;
 
     @Column(name = "created_date")
     @CreatedDate

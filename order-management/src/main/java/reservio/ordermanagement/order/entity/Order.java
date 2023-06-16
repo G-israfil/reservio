@@ -1,14 +1,14 @@
 package reservio.ordermanagement.order.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Cleanup;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import reservio.common.enums.Status;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "order")
 @Entity
@@ -24,6 +24,10 @@ public class Order {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @Column(name = "createdDate")
     @CreatedDate
     private LocalDateTime createdDate;
@@ -32,5 +36,14 @@ public class Order {
     @LastModifiedDate
     private LocalDateTime lastUpdatedDate;
 
+    @Column(name = "orderItems")
+    @OneToMany
+    private List<OrderItem> orderItems;
+
+    @Column(name = "relatedUserId")
+    private Long relatedUserId;
+
+    @Column(name = "relatedRestaurantId")
+    private Long relatedRestaurantId;
 
 }

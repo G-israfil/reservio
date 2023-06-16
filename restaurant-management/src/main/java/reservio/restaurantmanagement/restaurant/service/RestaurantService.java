@@ -7,19 +7,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import reservio.common.contant.Contants;
 import reservio.common.exceptions.NotFoundException;
 import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.request.CreateUpdateRestaurantFormInfo;
-import reservio.common.util.CommonUtils;
+import reservio.common.models.response.CreateUpdateRestaurantResponse;
+import reservio.common.util.JwtUtils;
 import reservio.restaurantmanagement.floor.entity.Floor;
 import reservio.restaurantmanagement.restaurant.dao.RestaurantRepository;
 import reservio.restaurantmanagement.restaurant.entity.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +27,12 @@ import java.util.Optional;
 public class RestaurantService {
     private final RestaurantRepository repository;
     private final ModelMapperHelper modelMapperHelper;
+    private final JwtUtils jwtUtils;
 
-    public Restaurant createRestaurant(@NonNull @RequestBody CreateUpdateRestaurantFormInfo formInfo) {
+    public Restaurant createRestaurant(@NonNull @RequestBody CreateUpdateRestaurantFormInfo formInfo,String authHeader) {
+        Long userId = jwtUtils.extractUserId(authHeader);
         final Restaurant restaurant = modelMapperHelper.map(formInfo, Restaurant.class);
+        restaurant.setOwnerId(userId);
         return this.repository.save(restaurant);
     }
 
@@ -76,6 +79,10 @@ public class RestaurantService {
             return optionalRestaurant.get();
         }
         throw new NotFoundException("Restaurant not found with given id: " + id);
+    }
+
+    public List<Long> listRestaurantIdsByUserId(@PathVariable @NonNull final Long id) {
+        return this.repository.findAllByOwnerId(id).stream().map(Restaurant::getId).collect(Collectors.toList());
     }
     public List<Restaurant> getAllRestaurant(){
         return this.repository.findAll();

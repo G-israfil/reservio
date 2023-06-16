@@ -10,18 +10,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
+import reservio.common.contant.QueueName;
+
+import static reservio.common.contant.Contants.CommonQueue.EXCHANGE_NAME;
+import static reservio.common.contant.QueueName.DIRECT_EXCHANGE;
 
 
 @Configuration
 public class MessageConfig {
+
     @Value("${app.queue.name}")
     private String queueName;
 
     @Bean
     FanoutExchange fanoutExchange() {
-        return ExchangeBuilder.fanoutExchange("all-services").durable(true).build();
+        return ExchangeBuilder.fanoutExchange(EXCHANGE_NAME).durable(true).build();
     }
 
+    @Bean
+    DirectExchange commonDirectExchange() {
+        return new DirectExchange(DIRECT_EXCHANGE);
+    }
     @Bean
     Queue queue() {
         return QueueBuilder.durable(queueName).build();
@@ -30,6 +39,13 @@ public class MessageConfig {
     @Bean
     Binding binding(Queue accountQueue, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(accountQueue).to(fanoutExchange);
+    }
+
+    @Bean
+    Binding directExchangeBinding(
+            final Queue userQueue, final DirectExchange commonDirectExchange) {
+
+        return BindingBuilder.bind(userQueue).to(commonDirectExchange).with(QueueName.USER);
     }
 
     @Bean

@@ -41,7 +41,7 @@ public class PaymentService {
             payment.setId(id);
             return paymentRepository.save(payment);
         }
-        throw new NotFoundException(Contants.ERROR_MESSAGES.PAYMENT_NOT_FOUND + id);
+        throw new NotFoundException(Contants.ErrorMessage.PAYMENT_NOT_FOUND + id);
     }
 
     public Payment getPayment(@PathVariable @NonNull Long id) {
@@ -50,7 +50,7 @@ public class PaymentService {
 
             return optionalPayment.get();
         }
-        throw new NotFoundException(Contants.ERROR_MESSAGES.PAYMENT_NOT_FOUND + id);
+        throw new NotFoundException(Contants.ErrorMessage.PAYMENT_NOT_FOUND + id);
     }
 
     public List<Payment> listPayments(@PathVariable String name, String value) {

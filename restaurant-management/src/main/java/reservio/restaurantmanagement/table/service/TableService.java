@@ -32,7 +32,7 @@ public class TableService {
             table = this.modelMapperHelper.map(formInfo, RTable.class);
             return this.repository.save(table);
         }
-        throw new NotFoundException(Contants.ERROR_MESSAGES.TABLE_NOT_FOUND + id);
+        throw new NotFoundException(Contants.ErrorMessage.TABLE_NOT_FOUND + id);
     }
 
     public void deleteTable(@NonNull final Long id) {
@@ -42,6 +42,6 @@ public class TableService {
     public RTable getTable(@NonNull final Long id) {
         final Optional<RTable> optionalTable = this.repository.findById(id);
         if (optionalTable.isPresent()) return optionalTable.get();
-        throw new NotFoundException(Contants.ERROR_MESSAGES.TABLE_NOT_FOUND + id);
+        throw new NotFoundException(Contants.ErrorMessage.TABLE_NOT_FOUND + id);
     }
 }

@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import reservio.common.queue.events.AccountCreatedEvent;
 import reservio.common.queue.EventType;
+import reservio.common.queue.events.SubscriptionEvent;
 
 
 @Service
@@ -19,8 +19,8 @@ public class MessageService {
     private String queueName;
 
     public void sendAccountCreatedMessage(@NonNull Long accountId){
-        AccountCreatedEvent accountCreatedEvent = new AccountCreatedEvent();
-        accountCreatedEvent.setId(accountId);
+        SubscriptionEvent accountCreatedEvent = new SubscriptionEvent();
+        accountCreatedEvent.setId(String.valueOf(accountId));
         rabbitTemplate.convertAndSend(queueName,accountCreatedEvent,message -> {
             message.getMessageProperties().setHeader("x-event-type", EventType.ACCOUNT_CREATED);
             return message;

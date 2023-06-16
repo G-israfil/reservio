@@ -36,4 +36,9 @@ public class PaymentMethodController {
     public ResponseEntity<PaymentMethod> getPaymentMethod(@PathVariable @NonNull Long id){
         return ResponseEntity.ok(this.paymentMethodService.getPaymentMethod((id)));
     }
+
+    @GetMapping("/paymentMethod/paymentMethodtype")
+    public ResponseEntity<PaymentMethod> getPaymentMethod(@RequestParam @NonNull String type){
+        return ResponseEntity.ok(this.paymentMethodService.getPaymentMethodByType(type));
+    }
 }

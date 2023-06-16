@@ -36,7 +36,7 @@ public class ProductCatalogService {
             this.repository.save(productSpecification);
             return productSpecification;
         }
-        throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
+        throw new NotFoundException(Contants.ErrorMessage.PRODUCT_SPECIFICATION_NOT_FOUND + id);
     }
 
     public void cancelProductSpecification(@NonNull Long id){
@@ -46,7 +46,7 @@ public class ProductCatalogService {
             productSpecification.setStatus(Status.CANCELLED);
             this.repository.save(productSpecification);
         }
-        throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
+        throw new NotFoundException(Contants.ErrorMessage.PRODUCT_SPECIFICATION_NOT_FOUND + id);
     }
     public void activateProductSpecification(@NonNull Long id){
         final Optional<ProductSpecification> optionalProductSpecification = this.repository.findById(id);
@@ -55,7 +55,7 @@ public class ProductCatalogService {
             productSpecification.setStatus(Status.ACTIVE);
             this.repository.save(productSpecification);
         }
-        throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
+        throw new NotFoundException(Contants.ErrorMessage.PRODUCT_SPECIFICATION_NOT_FOUND + id);
     }
     public void deleteProductSpecification(@NonNull Long id){
         repository.findById(id);
@@ -66,6 +66,6 @@ public class ProductCatalogService {
         if(optionalProductSpecification.isPresent()){
             return optionalProductSpecification.get();
         }
-        throw new NotFoundException(Contants.ERROR_MESSAGES.PRODUCT_SPECIFICATION_NOT_FOUND + id);
+        throw new NotFoundException(Contants.ErrorMessage.PRODUCT_SPECIFICATION_NOT_FOUND + id);
     }
 }

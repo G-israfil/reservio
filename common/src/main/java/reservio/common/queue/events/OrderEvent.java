@@ -1,4 +1,9 @@
 package reservio.common.queue.events;
 
-public class OrderEvent {
+import lombok.Data;
+import reservio.common.queue.EventMessage;
+
+@Data
+public class OrderEvent extends EventMessage {
+    String id;
 }

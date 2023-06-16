@@ -4,19 +4,19 @@ POSTGRES_DB: reservio
 DB_URL: reservio:5432
 
 
-ACCOUNT_MANAGEMENT_URL: http://ACCOUNT-MANAGEMENT
-ORDER_MANAGEMENT_URL: http://ORDER-MANAGEMENT
-PAYMENT_MANAGEMENT_URL: http://PAYMENT-MANAGEMENT
-PRODUCT_CATALOG_MANAGEMENT_URL: http://PRODUCT-CATALOG-MANAGEMENT
-RESERVATION_MANAGEMENT_URL: http://RESERVATION-MANAGEMENT
-RESTAURANT_MANAGEMENT_URL: http://RESTAURANT-MANAGEMENT
-STORAGE_MANAGEMENT_URL: http://localhost:9007
-SUBSCRIPTION_MANAGEMENT_URL: http://SUBSCRIPTION-MANAGEMENT
-USER_MANAGEMENT_URL: http://USER-MANAGEMENT
+ACCOUNT_MANAGEMENT_URL: http://ACCOUNT-MANAGEMENT/accountManagement
+ORDER_MANAGEMENT_URL: http://ORDER-MANAGEMENT/orderManagement
+PAYMENT_MANAGEMENT_URL: http://PAYMENT-MANAGEMENT/paymentManagement
+PRODUCT_CATALOG_MANAGEMENT_URL: http://PRODUCT-CATALOG-MANAGEMENT/productCatalogManagement
+RESERVATION_MANAGEMENT_URL: http://RESERVATION-MANAGEMENT/reservationManagement
+RESTAURANT_MANAGEMENT_URL: http://RESTAURANT-MANAGEMENT/restaurantManagement
+STORAGE_MANAGEMENT_URL: http://STORAGE-MANAGEMENT/storageManagement
+SUBSCRIPTION_MANAGEMENT_URL: http://SUBSCRIPTION-MANAGEMENT/subscriptionManagement
+USER_MANAGEMENT_URL: http://USER-MANAGEMENT/userManagement
 
 app:
   queue:
-    name: account
+      account: account
   jwt-secret:
     123456789ig
   urls:
@@ -55,6 +55,15 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true
+
 server:
   port: 9000
 

@@ -29,13 +29,13 @@ public class ProductCatalogController {
     @GetMapping("/productSpecification/cancel/{id}")
     private ResponseEntity<String> cancelProductSpecification(@PathVariable @NonNull String id){
         this.productCatalogService.cancelProductSpecification(Long.parseLong(id));
-        return ResponseEntity.ok(Contants.RESPONSE_MESSAGES.CANCELLED);
+        return ResponseEntity.ok(Contants.ResponseMessage.CANCELLED);
     }
 
     @GetMapping("/productSpecification/activate/{id}")
     private ResponseEntity<String> activateProductSpecification(@PathVariable @NonNull String id){
         this.productCatalogService.activateProductSpecification(Long.parseLong(id));
-        return ResponseEntity.ok(Contants.RESPONSE_MESSAGES.CANCELLED);
+        return ResponseEntity.ok(Contants.ResponseMessage.CANCELLED);
     }
 
     @DeleteMapping("/productSpecification/{id}")

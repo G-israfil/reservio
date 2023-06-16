@@ -1,13 +1,11 @@
 package reservio.usermanagement.user.controller;
 
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import reservio.common.models.response.UserCreateUpdateResponse;
 import reservio.usermanagement.user.models.UserCreateUpdateFormInfo;
 import reservio.usermanagement.user.services.UserService;
@@ -25,15 +23,17 @@ public class UserController {
         return ResponseEntity.ok(this.userService.createUser(formInfo));
     }
 
-    public void updateUser(){
-
+    @PatchMapping ("/user/{id}")
+    public ResponseEntity<UserCreateUpdateResponse> updateUser(@RequestBody final UserCreateUpdateFormInfo formInfo, @NonNull @PathVariable Long id){
+        return ResponseEntity.ok(this.userService.updateUser(formInfo,id));
     }
 
-    public void deleteUser(){
-
+    @DeleteMapping ("/user/{id}")
+    public ResponseEntity<Void> deleteUser(@NonNull @PathVariable Long id){
+        this.userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
     public void listUsers(){
 
     }
-
 }

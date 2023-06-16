@@ -1,6 +1,6 @@
 package reservio.common.contant;
 
-public class RelatedEntityTypes {
+public class RelatedEntityType {
     public static String USER = "user";
     public static String PAYMENT = "payment";
     public static String RESERVATION = "reservation";

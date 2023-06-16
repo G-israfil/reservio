@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 import reservio.accountmanagement.account.dao.AccountRepository;
 import reservio.accountmanagement.account.entitiy.Account;
 import reservio.accountmanagement.account.messaging.MessageService;
+import reservio.common.clients.PaymentManagementClientService;
 import reservio.common.contant.Contants;
 import reservio.common.contant.RelatedEntityName;
-import reservio.common.contant.RelatedEntityTypes;
+import reservio.common.contant.RelatedEntityType;
 import reservio.common.enums.AccountType;
 import reservio.common.enums.Status;
 import reservio.common.exceptions.NotFoundException;
@@ -19,10 +20,14 @@ import reservio.common.mappers.ModelMapperHelper;
 import reservio.common.models.embeddable.RelatedEntity;
 import reservio.common.models.request.CreateUpdateAccountFormInfo;
 import reservio.common.models.response.AccountCreateUpdateResponse;
+import reservio.common.models.response.PaymentMethodCreateUpdateResponse;
 import reservio.common.util.CommonUtils;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
+
+import static reservio.common.contant.Contants.PaymentMethod.DEFAULT_METHOD;
 
 @Service
 @RequiredArgsConstructor
@@ -32,24 +37,34 @@ public class AccountService {
     private final AccountRepository repository;
     private final ModelMapperHelper modelMapperHelper;
     private final MessageService messageService;
+    private final PaymentManagementClientService paymentManagementClientService;
     public AccountCreateUpdateResponse createAccount(@NonNull final CreateUpdateAccountFormInfo formInfo){
         log.info("Account creation started with. Request body ==> " + formInfo);
         final Account account = modelMapperHelper.map(formInfo, Account.class);
-        if (StringUtils.isBlank(account.getType().toString())) {
+        if (Objects.isNull(account.getType())) {
             account.setType(AccountType.USER_ACCOUNT);
         }
-        RelatedEntity userRelatedEntity = CommonUtils.generateRelatedEntity(RelatedEntityName.USER,formInfo.getUserId(), RelatedEntityTypes.USER);
+        RelatedEntity userRelatedEntity = CommonUtils.generateRelatedEntity(RelatedEntityName.USER,formInfo.getUserId(), RelatedEntityType.USER);
         account.setOwners(Collections.singletonList(userRelatedEntity));
-        RelatedEntity paymentMethod = CommonUtils.generateRelatedEntity(RelatedEntityName.DEFAULT_PAYMENT_METHOD,formInfo.getPaymentMethodId(), RelatedEntityTypes.PAYMENT_METHOD);
-        account.setPaymentMethods(Collections.singletonList(paymentMethod));
-        final Account craetedAccount = repository.save(account);
-        messageService.sendAccountCreatedMessage(account.getId());
+        if(StringUtils.isEmpty(formInfo.getPaymentMethodId()))  {
+            PaymentMethodCreateUpdateResponse defaultMethod = paymentManagementClientService.getAccountByType(DEFAULT_METHOD);
+            RelatedEntity paymentMethod = CommonUtils.generateRelatedEntity(RelatedEntityName.DEFAULT_PAYMENT_METHOD,defaultMethod.getId(), RelatedEntityType.PAYMENT_METHOD);
+            account.setPaymentMethods(Collections.singletonList(paymentMethod));
+        }else{
+            RelatedEntity paymentMethod = CommonUtils.generateRelatedEntity(RelatedEntityName.DEFAULT_PAYMENT_METHOD,formInfo.getPaymentMethodId(), RelatedEntityType.PAYMENT_METHOD);
+            account.setPaymentMethods(Collections.singletonList(paymentMethod));
+            account.setPaymentMethods(Collections.singletonList(paymentMethod));
+        }
 
+        final Account craetedAccount = repository.save(account);
+        log.info(craetedAccount.toString());
+        log.info(craetedAccount.getOwners().toString());
+        messageService.sendAccountCreatedMessage(account.getId(),Status.ACTIVE);
         return modelMapperHelper.map(craetedAccount,AccountCreateUpdateResponse.class);
     }
 
     public AccountCreateUpdateResponse getAccount(@NonNull final Long id){
-        final Account account = repository.findById(id).orElseThrow(() -> new NotFoundException(Contants.ERROR_MESSAGES.ACCOUNT_NOT_FOUND + id));
+        final Account account = repository.findById(id).orElseThrow(() -> new NotFoundException(Contants.ErrorMessage.ACCOUNT_NOT_FOUND + id));
         return modelMapperHelper.map(account,AccountCreateUpdateResponse.class);
     }
 

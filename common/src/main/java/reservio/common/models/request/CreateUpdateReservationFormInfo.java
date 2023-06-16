@@ -11,8 +11,8 @@ public class CreateUpdateReservationFormInfo {
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private String tableId;
-    private String restaurantId;
+    private Long tableId;
+    private Long restaurantId;
     private int reservationSize;
     private int duration;
     private String description;
