@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reservio.common.models.request.CreateUpdateReservationFormInfo;
+import reservio.common.models.response.DashboardAnalyticResponse;
 import reservio.reservationmanagement.reservation.entity.Reservation;
 import reservio.reservationmanagement.reservation.service.ReservationService;
+
+import java.util.List;
 
 @Controller
 @CrossOrigin("*")
@@ -43,21 +46,24 @@ public class ReservationController {
     }
 
     @PostMapping("/cancelReservation/{id}")
-    public ResponseEntity cancelReservation(@PathVariable @NonNull final String id) {
-        this.reservationService.cancelReservation(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Reservation> cancelReservation(@PathVariable @NonNull final String id) {
+        return ResponseEntity.ok(this.reservationService.cancelReservation(id));
     }
 
     @PostMapping("/postponeReservation/{id}")
-    public ResponseEntity postponeReservation(@PathVariable @NonNull final String id) {
-        this.reservationService.postponeReservation(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Reservation> postponeReservation(@PathVariable @NonNull final String id) {
+        return ResponseEntity.ok(this.reservationService.postponeReservation(id));
     }
 
     @PostMapping("/advanceReservation/{id}")
-    public ResponseEntity advanceReservation(@PathVariable @NonNull final String id) {
-        this.reservationService.advanceReservation(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Reservation> advanceReservation(@PathVariable @NonNull final String id) {
+
+        return ResponseEntity.ok(this.reservationService.advanceReservation(id));
+    }
+
+    @GetMapping("/reservation")
+    public ResponseEntity<List<DashboardAnalyticResponse>> advanceReservation(@RequestParam @NonNull final Long restaurantId) {
+        return ResponseEntity.ok(this.reservationService.calculateAnalyticForRestaurant(restaurantId));
     }
 }
 

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import reservio.common.enums.Status;
 import reservio.common.models.embeddable.RelatedEntity;
+import reservio.common.util.CommonUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.UUID;
 public class Reservation {
     @Id
     @Column(name = "reservationId")
-    private Long id;
+    private Long id = CommonUtils.generateUUID();
 
     @Column(name = "description")
     private String description;
@@ -54,16 +55,23 @@ public class Reservation {
     @Column(name = "updatedBy")
     private String updatedBy;
 
+    @Column(name = "restaurantId")
+    private Long restaurantId;
 
-    // Restaurant table client
-    @ElementCollection
-    private List<RelatedEntity> relatedEntities;
+    @Column(name = "tableId")
+    private Long tableId;
+
+    @Column(name = "month")
+    private Integer month;
+
+    @Column(name = "day")
+    private Integer day;
+
+    @Column(name = "week")
+    private Integer week;
 
     @Column(name = "version")
     @Version
     private int version;
-    public Reservation(){
-        id = UUID.fromString(UUID.randomUUID().toString()).getMostSignificantBits();
-    }
 
 }
