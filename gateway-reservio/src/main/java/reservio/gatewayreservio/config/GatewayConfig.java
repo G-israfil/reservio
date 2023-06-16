@@ -27,6 +27,9 @@ public class GatewayConfig {
     @Value("${app.urls.user-management}")
     private String userManagementUrl;
 
+    @Value("${app.urls.product-catalog-management}")
+    private String productCatalogManagement;
+
     @Bean
     public RouteLocator myRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
@@ -50,7 +53,7 @@ public class GatewayConfig {
                         .uri(this.userManagementUrl))
                 .route(p -> p
                         .path("/productCatalogManagement/**")
-                        .uri(this.userManagementUrl))
+                        .uri(this.productCatalogManagement))
                 .build();
     }
 
