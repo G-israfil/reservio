@@ -57,14 +57,20 @@ public class UserService {
 
         if(!DigestUtils.sha256Hex(formInfo.getPassword()).equals(user.getHash())) throw new UnAuthorizedException("Password is incorrect!!");
         final String rolesAsString = user.getRoles().stream().map(Enum::toString).collect(Collectors.joining(","));
-        final List<Long> relatedRestaurantIds = this.restaurantManagementClientService.getRestaurantByUserId(user.getId());
         String restaurantsAsString = "";
-        if (!ObjectUtils.isEmpty(relatedRestaurantIds)) {
-            List<String> stringIds = relatedRestaurantIds.stream()
-                    .map(Object::toString)
-                    .collect(Collectors.toList());
-            restaurantsAsString = String.join(",", stringIds);
+        try {
+            final List<Long> relatedRestaurantIds = this.restaurantManagementClientService.getRestaurantByUserId(user.getId());
+
+            if (!ObjectUtils.isEmpty(relatedRestaurantIds)) {
+                List<String> stringIds = relatedRestaurantIds.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.toList());
+                restaurantsAsString = String.join(",", stringIds);
+            }
+        }catch (Exception e){
+            log.info("Failed to get restaurants");
         }
+
 
         log.info("After the conversion");
         return LoginResponse.builder()
