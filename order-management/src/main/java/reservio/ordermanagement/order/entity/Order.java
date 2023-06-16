@@ -37,7 +37,7 @@ public class Order {
     private LocalDateTime lastUpdatedDate;
 
     @Column(name = "orderItems")
-    @OneToMany
+    @OneToMany()
     private List<OrderItem> orderItems;
 
     @Column(name = "relatedUserId")

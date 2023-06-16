@@ -20,7 +20,7 @@ public class MessageConfig {
 
     @Bean
     Queue queue() {
-        return QueueBuilder.durable("reservio").build();
+        return QueueBuilder.durable(queueName).build();
     }
 
     @Bean

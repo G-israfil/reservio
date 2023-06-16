@@ -1,12 +1,11 @@
 package reservio.storagemanagement.inventory.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import reservio.common.models.embeddable.Price;
 import reservio.common.util.CommonUtils;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -22,7 +21,7 @@ public class InventoryRecord {
     private Double weight;
     private int quantity;
     private Long relatedRestaurantId;
-    private Price perSalePrice;
     private Integer profitRate;
-    private Price cost;
+    @ElementCollection
+    private List<Price> cost;
 }

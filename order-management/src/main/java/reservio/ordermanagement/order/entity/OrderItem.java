@@ -2,7 +2,7 @@ package reservio.ordermanagement.order.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.security.core.parameters.P;
+
 import reservio.common.models.embeddable.Price;
 import reservio.common.models.embeddable.Product;
 
@@ -16,11 +16,10 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "product")
     private Product product;
 
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "totalPrice")
-    private Price totalPrice;
 }

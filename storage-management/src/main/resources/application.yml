@@ -31,7 +31,7 @@ app:
 
 spring:
   application:
-    name: user-management
+    name: storage-management
   datasource:
     url: jdbc:postgresql://${DB_URL}/${POSTGRES_DB}
     username: ${POSTGRES_USER}

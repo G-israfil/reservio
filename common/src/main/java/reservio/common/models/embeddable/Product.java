@@ -1,5 +1,6 @@
 package reservio.common.models.embeddable;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 
@@ -14,5 +15,6 @@ public class Product {
     private String type;
     private Price price;
     private Long specificationId;
+    @ElementCollection
     private List<Properties> properties;
 }

@@ -29,6 +29,10 @@ public class GatewayConfig {
 
     @Value("${app.urls.product-catalog-management}")
     private String productCatalogManagement;
+    private final ReplaceHeadersGatewayFilterFactory filterFactory;
+    public GatewayConfig(ReplaceHeadersGatewayFilterFactory filterFactory){
+        this.filterFactory = filterFactory;
+    }
 
     @Bean
     public RouteLocator myRoutes(RouteLocatorBuilder builder) {
@@ -50,6 +54,7 @@ public class GatewayConfig {
                         .uri(this.paymentManagementUrl))
                 .route(p -> p
                         .path("/userManagement/**")
+                        .filters(f -> f.filter(filterFactory.apply(new ReplaceHeadersGatewayFilterFactory.Config())))
                         .uri(this.userManagementUrl))
                 .route(p -> p
                         .path("/productCatalogManagement/**")
